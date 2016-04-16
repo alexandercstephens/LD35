@@ -26,6 +26,7 @@ public class CameraController : MonoBehaviour {
         if (isTopDown)
         {
             cam.transform.localPosition = Vector3.Slerp(cam.transform.localPosition, topDownPosition.localPosition, slerpSpeed);
+            cam.transform.LookAt(lookAhead, Vector3.Slerp(cam.transform.up, Vector3.forward, slerpSpeed));
             cam.transform.LookAt(new Vector3(0f, 0f, cam.transform.position.z), Vector3.Slerp(cam.transform.up, Vector3.forward, slerpSpeed));
         } else
         {
