@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour {
 
     private bool isTopDown;
 
+    private float shake = 0f;
+
     void Awake () {
         cam = GetComponentInChildren<Camera>();
         topDownPosition = transform.Find("TopDownPosition");
@@ -32,6 +34,17 @@ public class CameraController : MonoBehaviour {
             cam.transform.localPosition = Vector3.Slerp(cam.transform.localPosition, sideViewPosition.localPosition, slerpSpeed);
             cam.transform.LookAt(new Vector3(0f, 0f, cam.transform.position.z), Vector3.Slerp(cam.transform.up, Vector3.up, slerpSpeed));
         }
+
+        if (shake > 0)
+        {
+            cam.transform.localPosition += Random.insideUnitSphere * shake;
+            shake -= Time.deltaTime;
+        }
+    }
+
+    public void addShake (float amount)
+    {
+        shake += amount;
     }
 	
 	public void SetTopDownView ()

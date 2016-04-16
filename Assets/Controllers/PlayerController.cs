@@ -38,6 +38,10 @@ public class PlayerController : MonoBehaviour {
                 cameraController.SetSideView();
             }
         }
+        if (Input.GetKeyDown(KeyCode.P)) //TODO remove; for debugging only
+        {
+            cameraController.addShake(1f);
+        }
         SetScale();
         Move();
     }
