@@ -53,11 +53,11 @@ public class PlayerController : MonoBehaviour {
     {
         if (isTopDown)
         {
-            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(1f, 15.5f, 1f), 0.1f);
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(1f, 14.5f, 1f), 0.1f);
         }
         else
         {
-            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(20f, 1f, 1f), 0.1f);
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(19f, 1f, 1f), 0.1f);
         }
     }
 

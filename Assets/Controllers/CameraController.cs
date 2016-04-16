@@ -3,7 +3,6 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
     public float slerpSpeed = 0.1f;
-    public Vector3 lookAhead;
 
     private Camera cam;
     private Transform topDownPosition;
@@ -28,10 +27,11 @@ public class CameraController : MonoBehaviour {
         {
             cam.transform.localPosition = Vector3.Slerp(cam.transform.localPosition, topDownPosition.localPosition, slerpSpeed);
             cam.transform.LookAt(lookAhead, Vector3.Slerp(cam.transform.up, Vector3.forward, slerpSpeed));
+            cam.transform.LookAt(new Vector3(0f, 0f, cam.transform.position.z), Vector3.Slerp(cam.transform.up, Vector3.forward, slerpSpeed));
         } else
         {
             cam.transform.localPosition = Vector3.Slerp(cam.transform.localPosition, sideViewPosition.localPosition, slerpSpeed);
-            cam.transform.LookAt(lookAhead, Vector3.Slerp(cam.transform.up, Vector3.up, slerpSpeed));
+            cam.transform.LookAt(new Vector3(0f, 0f, cam.transform.position.z), Vector3.Slerp(cam.transform.up, Vector3.up, slerpSpeed));
         }
     }
 	
