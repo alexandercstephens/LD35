@@ -65,7 +65,7 @@ public class AudioVisualizerLineRenderer : MonoBehaviour {
         {
             /*Set the cubePos Vector3 to the same value as the position of the corresponding 
              * cube. However, set it's Y element according to the current sample.*/
-            cubePos.Set(cubesTransform[i].position.x, Mathf.Clamp(samples[i] * (50 + i * i), 0, 50), cubesTransform[i].position.z);
+            cubePos.Set(cubesTransform[i].position.x, Mathf.Clamp(samples[i] * (100 + i * i), 0, 100), cubesTransform[i].position.z);
 
             //If the new cubePos.y is greater than the current cube position  
             if (cubePos.y >= cubesTransform[i].position.y)
