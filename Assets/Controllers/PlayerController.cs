@@ -3,18 +3,42 @@
 public class PlayerController : MonoBehaviour {
     public float movementSpeed = 1f;
 
+    private CameraController cameraController;
+
     private bool isTopDown;
+    private Vector3 movementVector;
+
+    void Awake ()
+    {
+        cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
+    }
 
     // Use this for initialization
-    void Awake () {
-        Transform(true);
+    void Start () {
+        Transform(false);
     }
 	
     // Update is called once per frame
     void Update () {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            Transform(!isTopDown);
+            isTopDown = !isTopDown;
+            if (isTopDown)
+            {
+                cameraController.SetTopDownView();
+            }
+            else
+            {
+                cameraController.SetSideView();
+            }
+        }
+        if (isTopDown)
+        {
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(1f, 20f, 1f), 0.1f);
+            //this.transform.localPosition = new Vector3(transform.localPosition.x, 0f, transform.localPosition.z);
+        } else
+        {
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(20f, 1f, 1f), 0.1f);
         }
         Move();
     }
@@ -32,14 +56,17 @@ public class PlayerController : MonoBehaviour {
     //and horizontal alignment (side view)
     private void Transform (bool itd) //isTopDown
     {
-        this.transform.localScale = itd ? new Vector3(1f, 20f, 1f) : new Vector3(20f, 1f, 1f);
         if (itd)
         {
+            this.transform.localScale = new Vector3(1f, 20f, 1f);
             this.transform.localPosition = new Vector3(transform.localPosition.x, 0f, transform.localPosition.z);
+            cameraController.SetTopDownView();
         }
         else
         {
+            this.transform.localScale = new Vector3(20f, 1f, 1f);
             this.transform.localPosition = new Vector3(0f, transform.localPosition.y, transform.localPosition.z);
+            cameraController.SetSideView();
         }
         isTopDown = itd;
     }
@@ -50,7 +77,6 @@ public class PlayerController : MonoBehaviour {
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
 
-        Vector3 movementVector;
         if (isTopDown)
         {
             movementVector = new Vector3(horizontalMovement, 0f, verticalMovement);
