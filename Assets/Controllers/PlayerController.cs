@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        Transform(false);
+        isTopDown = false;
+        SetScale();
     }
 	
     // Update is called once per frame
@@ -35,14 +36,7 @@ public class PlayerController : MonoBehaviour {
                 cameraController.SetSideView();
             }
         }
-        if (isTopDown)
-        {
-            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(1f, 20f, 1f), 0.1f);
-            //this.transform.localPosition = new Vector3(transform.localPosition.x, 0f, transform.localPosition.z);
-        } else
-        {
-            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(20f, 1f, 1f), 0.1f);
-        }
+        SetScale();
         Move();
     }
 
@@ -55,23 +49,16 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    //transforms player between vertical alignment (top-down view)
-    //and horizontal alignment (side view)
-    private void Transform (bool itd) //isTopDown
+    private void SetScale ()
     {
-        if (itd)
+        if (isTopDown)
         {
-            this.transform.localScale = new Vector3(1f, 20f, 1f);
-            this.transform.localPosition = new Vector3(transform.localPosition.x, 0f, transform.localPosition.z);
-            cameraController.SetTopDownView();
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(1f, 15.5f, 1f), 0.1f);
         }
         else
         {
-            this.transform.localScale = new Vector3(20f, 1f, 1f);
-            this.transform.localPosition = new Vector3(0f, transform.localPosition.y, transform.localPosition.z);
-            cameraController.SetSideView();
+            this.transform.localScale = Vector3.Lerp(this.transform.localScale, new Vector3(20f, 1f, 1f), 0.1f);
         }
-        isTopDown = itd;
     }
 
     //checks for movement input and moves player
