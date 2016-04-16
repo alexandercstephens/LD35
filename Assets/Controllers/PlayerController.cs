@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
     private CameraController cameraController;
     private BoxCollider playerBox;
+    private ParticleSystem[] engineParticles;
 
     private bool isTopDown;
     private Vector3 movementVector;
@@ -14,6 +15,7 @@ public class PlayerController : MonoBehaviour {
     {
         cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
         playerBox = GetComponent<BoxCollider>();
+        engineParticles = GetComponentsInChildren<ParticleSystem>();
     }
 
     // Use this for initialization
@@ -76,6 +78,13 @@ public class PlayerController : MonoBehaviour {
             movementVector = new Vector3(0f, verticalMovement, horizontalMovement);
         }
         this.transform.Translate(movementSpeed * Time.deltaTime * movementVector);
+
+        foreach (var particleSystem in engineParticles)
+        {
+            //TODO engine sound effect change volume
+            //TODO don't hardcode values
+            particleSystem.startSize = 0.2f * (1.2f + 0.6f * movementVector.z);
+        }
 
         //keep player inside bounds -gotta be a better way to do this
         if (playerBox.bounds.min.x < boundaryBox.bounds.min.x)

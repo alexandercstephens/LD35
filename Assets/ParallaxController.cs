@@ -2,29 +2,32 @@
 using System.Collections;
 
 public class ParallaxController : MonoBehaviour {
-    [System.Serializable]
-    public class Background
-    {
-        public GameObject background;
-        public int size;
-    }
+    public GameObject background;
+    public float speed;
+    public float size;
 
-    public float parallaxSpeed = 1f;
-    public Background[] backgrounds;
+    private GameObject o1;
+    private GameObject o2;
 
     void Awake ()
     {
-        foreach (var background in backgrounds)
-        {
-            var go = Instantiate(background.background);
-            var go2 = (GameObject)Instantiate(background.background, background.background.transform.localPosition + new Vector3(0f, 0f, background.size), background.background.transform.localRotation);
-            go.transform.parent = transform;
-            go2.transform.parent = transform;
-        }
+            o1 = Instantiate(background);
+            o2 = (GameObject)Instantiate(background, background.transform.localPosition + new Vector3(0f, 0f, size), background.transform.localRotation);
+            o1.transform.parent = transform;
+            o2.transform.parent = transform;
     }
 
 	// Update is called once per frame
 	void Update () {
-        transform.Translate(Vector3.back * parallaxSpeed * Time.deltaTime);
-	}
+        o1.transform.localPosition -= new Vector3(0f, 0f, 1f) * speed * Time.deltaTime;
+        o2.transform.localPosition -= new Vector3(0f, 0f, 1f) * speed * Time.deltaTime;
+
+        if (o2.transform.localPosition.z < 0)
+        {
+            o1.transform.localPosition += new Vector3(0f, 0f, size * 2);
+            var t = o2;
+            o2 = o1;
+            o1 = t;
+        }
+    }
 }
