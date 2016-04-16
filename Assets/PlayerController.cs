@@ -19,6 +19,15 @@ public class PlayerController : MonoBehaviour {
         Move();
     }
 
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "HurtsPlayer")
+        {
+            Debug.Log("You're dead");
+            Destroy(collider.gameObject);
+        }
+    }
+
     //transforms player between vertical alignment (top-down view)
     //and horizontal alignment (side view)
     private void Transform (bool itd) //isTopDown
