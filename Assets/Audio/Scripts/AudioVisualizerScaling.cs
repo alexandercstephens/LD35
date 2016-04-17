@@ -29,7 +29,7 @@ public class AudioVisualizerScaling : MonoBehaviour
     {
         //Get and store a reference to the following attached components:  
         //AudioSource  
-        this.aSource = GetComponent<AudioSource>();
+        this.aSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
         //LineRenderer  
         this.lRenderer = GetComponent<LineRenderer>();
         //Transform  
