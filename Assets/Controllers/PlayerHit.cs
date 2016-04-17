@@ -12,7 +12,7 @@ public class PlayerHit : MonoBehaviour {
     void Awake()
     {
         Spawner = GameObject.FindGameObjectWithTag("Spawner");
-        ScoreValue = GameObject.FindGameObjectWithTag("Score");
+        //ScoreValue = GameObject.FindGameObjectWithTag("Score");
     }
 
     void OnTriggerEnter(Collider collider)
@@ -27,8 +27,8 @@ public class PlayerHit : MonoBehaviour {
         {
             collider.GetComponent<CheckPoint>().GetCheckPoint();
             Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
-            var score = Score.text.Replace("Score:", "");
-            GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<HUD>().SetScoreValue(float.Parse(score));
+            //var score = Score.text.Replace("Score:", "");
+            //GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<HUD>().SetScoreValue(float.Parse(score));
            
         }
         //    Debug.Log("You're dead");

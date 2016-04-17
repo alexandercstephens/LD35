@@ -3,13 +3,21 @@ using System.Collections;
 
 public class Noise : MonoBehaviour {
     private Renderer r;
+    private Renderer[] childRenderers;
 
     void Awake ()
     {
         r = GetComponent<Renderer>();
+        childRenderers = GetComponentsInChildren<Renderer>();
     }
 
 	void Update () {
-        r.material.SetTextureOffset("_MainTex", new Vector2(Random.value, Random.value));
+        //TODO randomize the shared material to improve performance
+        var randomVec2 = new Vector2(Random.value, Random.value);
+        r.material.SetTextureOffset("_MainTex", randomVec2);
+        foreach (var cr in childRenderers)
+        {
+            cr.material.SetTextureOffset("_MainTex", randomVec2);
+        }
     }
 }
