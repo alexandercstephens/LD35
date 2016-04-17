@@ -46,6 +46,11 @@ public class CameraController : MonoBehaviour {
     {
         shake += amount;
     }
+
+    public void killShake ()
+    {
+        shake = 0;
+    }
 	
 	public void SetTopDownView ()
     {

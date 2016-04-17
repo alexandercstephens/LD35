@@ -21,7 +21,7 @@ public class PlayerHit : MonoBehaviour {
         {
             Debug.Log("You're dead");
             //Destroy(collider.gameObject);
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
         }
         if (collider.tag == "CheckPoint")
         {
