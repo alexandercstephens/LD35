@@ -12,14 +12,12 @@ public class PlayerController : MonoBehaviour
 
 	private bool isTopDown;
 	private Vector3 movementVector;
-	private SpearheadController spearHead;
 
 	void Awake ()
 	{
 		Spawner = GameObject.FindGameObjectWithTag ("Spawner");
 		cameraController = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
 		engineParticles = GetComponentsInChildren<ParticleSystem> ();
-		spearHead = GetComponentInChildren<SpearheadController> ();
 	}
 
 	// Use this for initialization
@@ -42,9 +40,6 @@ public class PlayerController : MonoBehaviour
 		}
 		if (Input.GetKeyDown (KeyCode.P)) { //TODO remove; for debugging only
 			cameraController.addShake (1f);
-		}
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			spearHead.Spear ();
 		}
 		SetScale ();
 		Move ();

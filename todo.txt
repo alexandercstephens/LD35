@@ -1,7 +1,7 @@
 to do during development:
 make player death
 design levels
-do something on the beat (maybe attack?)
+title screen, and ending screen possibly looping back to the title screen
 find sound effects
 make exploded chunks fade away
 make player glow or something when they attack
