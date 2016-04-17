@@ -9,9 +9,12 @@ public class GenericEnemyController : MonoBehaviour {
 	private float SMNextMove = 0.0f;
 	private float nextFireTime = 0.0f;
 	private float swayRotation = 0.0f;
+	private float totalSpeed = 0.0f;
+	private float SceneSpeed = 0.0f;
 	private Vector3 bulletOffset = new Vector3( 0, 0, -1 );
 
 	public bool CanShoot = true;
+	public float swaySpeed = 10.0f;
 	public int ShootStyle = 0;
 	public bool FlyTowardsPlayer = false;
 	public bool SwayMovement = false;
@@ -20,7 +23,7 @@ public class GenericEnemyController : MonoBehaviour {
 	public float movementSpeed = 25.0f;
 
 	public GameObject bulletPrefab;
-	public GameObject playerObject;
+	private GameObject playerObject;
 
 	GameObject CreateBullet( Vector3 pos ) {
 		return CreateBullet (pos, Quaternion.LookRotation (pos - playerObject.transform.position) );
@@ -29,17 +32,20 @@ public class GenericEnemyController : MonoBehaviour {
 	GameObject CreateBullet( Vector3 pos, Quaternion angle ) {
 
 		var gameBullet = (GameObject)Instantiate (bulletPrefab, pos, Quaternion.Euler( 0, 0, 0 ) );
-		gameBullet.transform.rotation = angle;
-		gameBullet.GetComponent<BulletController> ().movementSpeed = gameBullet.GetComponent<BulletController> ().movementSpeed + movementSpeed + this.transform.parent.GetComponent<MovingSceneController> ().movementSpeed;
+		gameBullet.transform.rotation = angle * this.transform.rotation;
+		gameBullet.GetComponent<BulletController> ().movementSpeed = gameBullet.GetComponent<BulletController> ().movementSpeed + movementSpeed + SceneSpeed;
 		return gameBullet;
 
 	}
 
 	// Use this for initialization
 	void Start () {
+		SceneSpeed = GameObject.Find ("MovingScene").GetComponent<MovingSceneController> ().movementSpeed;
 		nextFireTime = Time.time + fireRate;
 		SMPos = SMDestPos = this.transform.position;
 		SMNextMove = Time.time + 1.0f;
+		totalSpeed = SceneSpeed + movementSpeed;
+		playerObject = GameObject.Find ("Player");
 	}
 
 	void LateUpdate() { 
@@ -48,7 +54,7 @@ public class GenericEnemyController : MonoBehaviour {
 				SMNextMove = Time.time + 0.8f;
 				int typeMovement = Random.Range( 0, 4 );
 				Vector3 diff = new Vector3 (0, 0, 0);
-				float moveDist = movementSpeed * .25f;
+				float moveDist = totalSpeed * .25f;
 
 				if (SMPos.y > 5) {
 					typeMovement = 0;
@@ -78,7 +84,7 @@ public class GenericEnemyController : MonoBehaviour {
 
 				SMDestPos = SMPos - diff;
 			}
-			SMPos = Vector3.Lerp (SMPos, SMDestPos, .5f);
+			SMPos = Vector3.Lerp (SMPos, SMDestPos, .1f);
 			this.transform.position = SMPos;
 		}
 	}
@@ -88,8 +94,10 @@ public class GenericEnemyController : MonoBehaviour {
 		if (SwayMovement) {
 
 			Vector3 curPos = this.transform.position;
-			swayRotation =  ( ( swayRotation > 360.0f )? swayRotation - 360.0f : swayRotation ) + ( movementSpeed * 25.0f ) * Time.deltaTime;
-			curPos.y = curPos.y + .45f * Mathf.Sin( Mathf.Deg2Rad * swayRotation );
+			float delta = (swaySpeed * 25.0f);
+
+			swayRotation =  ( ( swayRotation > 360.0f )? swayRotation - 360.0f : swayRotation ) + delta * Time.deltaTime;
+			curPos.y = curPos.y + .08f * Mathf.Sin( Mathf.Deg2Rad * swayRotation );
 			this.transform.position = curPos;
 
 		}
@@ -100,9 +108,10 @@ public class GenericEnemyController : MonoBehaviour {
 	void Update () {
 
 		bool pastPlayer = (this.transform.position.z - 5 < playerObject.transform.position.z);
-		bool withinShootingRange = (this.transform.position.z - 45 < playerObject.transform.position.z );
+		bool withinShootingRange = (this.transform.position.z - 65 < playerObject.transform.position.z );
 
-		this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
+		if( this.transform.position.z - 35 < playerObject.transform.position.z )
+			this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
 
 		if (!pastPlayer) {
 
@@ -113,6 +122,8 @@ public class GenericEnemyController : MonoBehaviour {
 			}
 
 		}
+
+
 
 		if (CanShoot && withinShootingRange && Time.time > nextFireTime) {
 			nextFireTime = Time.time + fireRate;
@@ -125,9 +136,9 @@ public class GenericEnemyController : MonoBehaviour {
 						CreateBullet (bulletCenterPos);
 					break;
 				case 2:
-					CreateBullet (bulletCenterPos, Quaternion.Euler (20, 0, 0));
-					CreateBullet (bulletCenterPos, Quaternion.Euler (0, 0, 0));
-					CreateBullet (bulletCenterPos, Quaternion.Euler (-20, 0, 0));
+				CreateBullet (bulletCenterPos, Quaternion.Euler ( 20, 0, 0));
+				CreateBullet (bulletCenterPos, Quaternion.Euler ( 0, 0, 0));
+				CreateBullet (bulletCenterPos, Quaternion.Euler (-20, 0, 0));
 					break;
 				case 3:
 					CreateBullet (bulletCenterPos, Quaternion.Euler (0, -20, 0));
