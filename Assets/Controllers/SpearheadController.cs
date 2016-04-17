@@ -6,7 +6,9 @@ public class SpearheadController : MonoBehaviour
 	private CameraController cameraController;
 	private PlayerController playerController;
 	private BoxCollider boxCollider;
-
+    private MeshRenderer meshRenderer;
+    private MeshRenderer playerRenderer;
+    
 	private LayerMask hittableThings;
 
 	private Vector3 originalPosition;
@@ -36,9 +38,13 @@ public class SpearheadController : MonoBehaviour
                     fracturedObject.Explode(hit.point, 15f + Random.value * 30f);
                     cameraController.addShake(0.44444444444f); //the length of one beat of the song
                 }
-            }			
+            }
 
-			timeHit = Time.time;
+            meshRenderer.material.color = Color.black;
+            playerRenderer.material.color = Color.black;
+            StartCoroutine("ResetTexture");
+
+            timeHit = Time.time;
 		} else {
 			//TODO make max length based on the end of the screen
 			transform.localPosition = new Vector3 (0f, 0f, distanceToScreenEnd * 0.5f + 0.5f);
@@ -51,6 +57,8 @@ public class SpearheadController : MonoBehaviour
 		cameraController = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
 		playerController = GameObject.Find ("Player").GetComponent<PlayerController> ();
 		boxCollider = GetComponent<BoxCollider> ();
+        meshRenderer = GetComponent<MeshRenderer>();
+        playerRenderer = transform.parent.GetComponent<MeshRenderer>();
 
         hittableThings = LayerMask.GetMask ("Enemies", "Walls");
 
@@ -65,4 +73,14 @@ public class SpearheadController : MonoBehaviour
 			transform.localScale = Vector3.Lerp (transform.localScale, originalScale, 0.1f);
 		}
 	}
+
+    private IEnumerator ResetTexture()
+    {
+        for (var f = 0f; f <= 1f; f += 0.1f)
+        {
+            meshRenderer.material.color = new Color(f, f, f);
+            playerRenderer.material.color = new Color(f, f, f);
+            yield return new WaitForSeconds(0.02f);
+        }        
+    }
 }

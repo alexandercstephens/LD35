@@ -4,12 +4,10 @@ design levels
 title screen, and ending screen possibly looping back to the title screen
 find sound effects
 make exploded chunks fade away
-make player glow or something when they attack
 change controls to better buttons
 design bosses
 loop music during level sections and bosses so the music plays at the exact right time and ends at the credits
 make some enemies die by multiple attacks
-use screenshake, possibly at ending
 change colors between levels
 change engine color gradients on forward/backward/stationary movement
 change alpha value of visualizer based on intensity of level/music
