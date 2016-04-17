@@ -23,7 +23,6 @@ public class SpearheadController : MonoBehaviour
 		//TODO make max length based on the end of the screen
 		if (Physics.BoxCast (transform.position, boxCollider.bounds.extents, Vector3.forward, out hit, Quaternion.identity, distanceToScreenEnd + 3f, enemies)) {
 			var distanceToEnemy = (hit.point - (transform.position - boxCollider.bounds.extents)).z;
-			Debug.Log (distanceToEnemy);
 
 			transform.localPosition = new Vector3 (0f, 0f, distanceToEnemy * 0.5f + 0.5f);
 			transform.localScale = new Vector3 (1f, 1f, distanceToEnemy);
