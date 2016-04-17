@@ -18,6 +18,7 @@ public class CheckPoint : MonoBehaviour
 
     public void GetCheckPoint()
     {
+        this.gameObject.SetActive(false);
         foreach (var v in visualizers) 
         {
             v.GetComponent<RandomColorAudioVisualizer>().CheckPointChange(this.name);

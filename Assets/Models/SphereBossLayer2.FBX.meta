@@ -1,32 +1,15 @@
 fileFormatVersion: 2
-guid: 7d406b605ecddcd4ca43e08689a4b517
-timeCreated: 1460862802
+guid: 64f6fd30b29150343a59347b73982a00
+timeCreated: 1460914749
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: GeoSphere001
-    100002: GeoSphere003
-    100004: GeoSphere004
-    100006: GeoSphere005
-    100008: //RootNode
-    400000: GeoSphere001
-    400002: GeoSphere003
-    400004: GeoSphere004
-    400006: GeoSphere005
-    400008: //RootNode
-    2300000: GeoSphere001
-    2300002: GeoSphere003
-    2300004: GeoSphere004
-    2300006: GeoSphere005
-    3300000: GeoSphere001
-    3300002: GeoSphere003
-    3300004: GeoSphere004
-    3300006: GeoSphere005
-    4300000: GeoSphere001
-    4300002: GeoSphere003
-    4300004: GeoSphere004
-    4300006: GeoSphere005
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: GeoSphere003
   materials:
     importMaterials: 1
     materialName: 0

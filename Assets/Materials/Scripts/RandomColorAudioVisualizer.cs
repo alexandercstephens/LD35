@@ -19,44 +19,6 @@ public class RandomColorAudioVisualizer : MonoBehaviour
 
 	public void CheckPointChange (string color)
 	{
-        
-<<<<<<< HEAD
-        if (color == "Cp1")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0f,0.1f), Random.Range(0f, 0.1f), 0.2f);
-        }
-        if (color == "Cp2")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0f, 0.1f), Random.Range(0f, 0.1f), Random.Range(0.2f, 1f), 0.2f);
-        }
-        if (color == "Cp3")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(0, Random.Range(0.2f, 1f), 0, 0.2f);
-        }
-        if (color == "Cp4")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0, 0.2f);
-        }
-        if (color == "Cp5")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), 0, Random.Range(0.2f, 1f), 0.2f);
-        }
-        if (color == "Cp6")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(0, Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0.2f);
-        }
-        if (color == "Cp7")
-        {
-            var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0.2f);
-        }
-=======
 		if (color == "Cp1") {
 			var rend = this.GetComponent<Renderer> ();
 			rend.material.color = new Color (Random.Range (0.2f, 1f), Random.Range (0f, 0.1f), Random.Range (0f, 0.1f), 0.2f);
@@ -85,7 +47,6 @@ public class RandomColorAudioVisualizer : MonoBehaviour
 			var rend = this.GetComponent<Renderer> ();
 			rend.material.color = new Color (Random.Range (0.2f, 1f), Random.Range (0.2f, 1f), Random.Range (0.2f, 1f), 0.2f);
 		}
->>>>>>> origin/master
 
 	}
 }
