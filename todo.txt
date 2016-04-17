@@ -1,15 +1,23 @@
+to do during development:
 make player death
 design levels
+title screen, and ending screen possibly looping back to the title screen
 find sound effects
-use enemy and player disintegration on hit
+make exploded chunks fade away
+make player glow or something when they attack
 fix noise script on enemies
 change controls to better buttons
-don't let player's attack reach off of the screen
 design bosses
+loop music during level sections and bosses so the music plays at the exact right time and ends at the credits
 make some enemies die by multiple attacks
 use screenshake, possibly at ending
 change colors between levels
 change engine color gradients on forward/backward/stationary movement
+change alpha value of visualizer based on intensity of level/music
+use player disintegration on hit
 make shader outline for player
 make custom outlined shader for engine particles
+
+to do before publish:
+remove all debug controls
 think of a name
