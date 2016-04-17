@@ -47,12 +47,11 @@ public class GenericEnemyController : MonoBehaviour {
 		
 		SMNextMove = Time.time + 1.0f;
 		gameCamera = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
-		sceneObject = GameObject.Find ("MovingScene");
 		playerObject = GameObject.Find ("Player");
     }
 
 	void LateUpdate() { 
-		if (StrangeMovement &&  closeToScreen ) {
+		if (StrangeMovement) {
 
             if (!SMinit)
             {
