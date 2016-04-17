@@ -3,12 +3,13 @@ using System.Collections;
 
 public class RandomColorAudioVisualizer : MonoBehaviour
 {
-
+    private GameObject[] Cp;
     // Use this for initialization
     void Start()
     {
         var rend = this.GetComponent<Renderer>();
         rend.material.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f));
+        Cp = GameObject.FindGameObjectsWithTag("CheckPoint");
         //InvokeRepeating("ColorChange", 0, 5);
     }
 
@@ -18,39 +19,40 @@ public class RandomColorAudioVisualizer : MonoBehaviour
         rend.material.color = new Color(Random.Range(0.0f, 0f), Random.Range(0.0f, 0.7f), Random.Range(0.0f, 0f));
     }
 
-    void Update()
+    public void CheckPointChange(string color)
     {
-        if (Input.GetKeyUp(KeyCode.K))
+        
+        if (color == "Cp1")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), 0, 0);
+            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0f,0.1f), Random.Range(0f, 0.1f));
         }
-        if (Input.GetKeyUp(KeyCode.L))
+        if (color == "Cp2")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(0, 0, Random.Range(0.2f, 1f));
+            rend.material.color = new Color(Random.Range(0f, 0.1f), Random.Range(0f, 0.1f), Random.Range(0.2f, 1f));
         }
-        if (Input.GetKeyUp(KeyCode.P))
+        if (color == "Cp3")
         {
             var rend = this.GetComponent<Renderer>();
             rend.material.color = new Color(0, Random.Range(0.2f, 1f), 0);
         }
-        if (Input.GetKeyUp(KeyCode.O))
+        if (color == "Cp4")
         {
             var rend = this.GetComponent<Renderer>();
             rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0);
         }
-        if (Input.GetKeyUp(KeyCode.I))
+        if (color == "Cp5")
         {
             var rend = this.GetComponent<Renderer>();
             rend.material.color = new Color(Random.Range(0.2f, 1f), 0, Random.Range(0.2f, 1f));
         }
-        if (Input.GetKeyUp(KeyCode.M))
+        if (color == "Cp6")
         {
             var rend = this.GetComponent<Renderer>();
             rend.material.color = new Color(0, Random.Range(0.2f, 1f), Random.Range(0.2f, 1f));
         }
-        if (Input.GetKeyUp(KeyCode.N))
+        if (color == "Cp7")
         {
             var rend = this.GetComponent<Renderer>();
             rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), Random.Range(0.2f, 1f));
