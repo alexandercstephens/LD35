@@ -4,6 +4,7 @@ using System.Collections;
 public class MovingSceneController : MonoBehaviour {
     public float movementSpeed = 1f;
 	public float startOffset = 0.0f;
+    public string audioSource;
     private GameObject Spawner;
 
     void Awake()

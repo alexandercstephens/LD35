@@ -4,7 +4,7 @@ using System.Collections;
 public class SpearheadController : MonoBehaviour
 {
 	private CameraController cameraController;
-	private PlayerController playerController;
+    private PlayerController playerController;
 	private BoxCollider boxCollider;
     private MeshRenderer meshRenderer;
     private MeshRenderer playerRenderer;
@@ -40,17 +40,17 @@ public class SpearheadController : MonoBehaviour
                 }
             }
 
-            meshRenderer.material.color = Color.black;
-            playerRenderer.material.color = Color.black;
-            StartCoroutine("ResetTexture");
-
             timeHit = Time.time;
 		} else {
 			//TODO make max length based on the end of the screen
 			transform.localPosition = new Vector3 (0f, 0f, distanceToScreenEnd * 0.5f + 0.5f);
 			transform.localScale = new Vector3 (1f, 1f, distanceToScreenEnd);
 		}
-	}
+
+        meshRenderer.material.color = Color.black;
+        playerRenderer.material.color = Color.black;
+        StartCoroutine("ResetTexture");
+    }
 
 	void Awake ()
 	{
