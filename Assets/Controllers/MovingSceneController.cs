@@ -4,9 +4,17 @@ using System.Collections;
 public class MovingSceneController : MonoBehaviour {
     public float movementSpeed = 1f;
 	public float startOffset = 0.0f;
+    private GameObject Spawner;
+
+    void Awake()
+    {
+        Spawner = GameObject.FindGameObjectWithTag("Spawner");
+    }
 
 	void Start() {
-		this.transform.Translate (0.0f, 0.0f, -startOffset);
+        Spawner = GameObject.FindGameObjectWithTag("Spawner");
+        this.transform.Translate (0.0f, 0.0f, -Spawner.transform.position.z +2);
+        //Instantiate(MovingScene, new Vector3(0, 0, -Spawner.transform.position.z), Quaternion.identity);
 	}
 
 	// Update is called once per frame

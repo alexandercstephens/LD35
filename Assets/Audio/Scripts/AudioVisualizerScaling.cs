@@ -34,11 +34,6 @@ public class AudioVisualizerScaling : MonoBehaviour
         this.lRenderer = GetComponent<LineRenderer>();
         //Transform  
         this.goTransform = GetComponent<Transform>();
-
-    }
-
-    void Start()
-    {
         //The line should have the same number of points as the number of samples  
         lRenderer.SetVertexCount(samples.Length);
         //The cubesTransform array should be initialized with the same length as the samples array  
@@ -65,35 +60,40 @@ public class AudioVisualizerScaling : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+
+    }
+
     void Update()
     {
-            //Obtain the samples from the frequency bands of the attached AudioSource  
-            aSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
-            //For each sample  
-            //this.transform.LookAt(Camera.main.transform.position);
-            for (int i = 0; i < samples.Length; i++)
+        //Obtain the samples from the frequency bands of the attached AudioSource  
+        aSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
+        //For each sample  
+        //this.transform.LookAt(Camera.main.transform.position);
+        for (int i = 0; i < samples.Length; i++)
+        {
+            /*Set the cubePos Vector3 to the same value as the position of the corresponding 
+             * cube. However, set it's Y element according to the current sample.*/
+            cubePos.Set(cubesTransform[i].localScale.x, Mathf.Clamp(samples[i] * (100 + i * 100), 0.1f, 500), cubesTransform[i].localScale.z);
+
+            //If the new cubePos.y is greater than the current cube position
+
+            if (cubePos.y >= cubesTransform[i].localScale.y)
             {
-                /*Set the cubePos Vector3 to the same value as the position of the corresponding 
-                 * cube. However, set it's Y element according to the current sample.*/
-                cubePos.Set(cubesTransform[i].localScale.x, Mathf.Clamp(samples[i] * (100 + i * 100), 0.1f, 500), cubesTransform[i].localScale.z);
-
-                //If the new cubePos.y is greater than the current cube position
-                  
-                if (cubePos.y >= cubesTransform[i].localScale.y)
-                {
-                    //Set the cube to the new Y position  
-                    cubesTransform[i].localScale = cubePos;
-                }
-                else
-                {
-                    //The spectrum line is below the cube, make it fall  
-                    cubesTransform[i].localScale -= gravity;
-                }
-
-                /*Set the position of each vertex of the line based on the cube position. 
-                 * Since this method only takes absolute World space positions, it has 
-                 * been subtracted by the current game object position.*/
-                lRenderer.SetPosition(i, cubePos - goTransform.position);
+                //Set the cube to the new Y position  
+                cubesTransform[i].localScale = cubePos;
             }
+            else
+            {
+                //The spectrum line is below the cube, make it fall  
+                cubesTransform[i].localScale -= gravity;
+            }
+
+            /*Set the position of each vertex of the line based on the cube position. 
+             * Since this method only takes absolute World space positions, it has 
+             * been subtracted by the current game object position.*/
+            lRenderer.SetPosition(i, cubePos - goTransform.position);
         }
     }
+}

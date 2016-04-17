@@ -18,7 +18,7 @@ public class CheckPoint : MonoBehaviour
 
     public void GetCheckPoint()
     {
-        foreach(var v in visualizers)
+        foreach (var v in visualizers) 
         {
             v.GetComponent<RandomColorAudioVisualizer>().CheckPointChange(this.name);
         }

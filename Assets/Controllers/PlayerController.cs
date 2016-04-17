@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
     public float movementSpeed = 1f;
     public BoxCollider boundaryBox;
+    private GameObject Spawner;
 
     private CameraController cameraController;
     private BoxCollider playerBox;
@@ -11,21 +13,24 @@ public class PlayerController : MonoBehaviour {
     private bool isTopDown;
     private Vector3 movementVector;
 
-    void Awake ()
+    void Awake()
     {
+        Spawner = GameObject.FindGameObjectWithTag("Spawner");
         cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
         playerBox = GetComponent<BoxCollider>();
         engineParticles = GetComponentsInChildren<ParticleSystem>();
     }
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         isTopDown = false;
         SetScale();
     }
-	
+
     // Update is called once per frame
-    void Update () {
+    void Update()
+    {
         if (Input.GetKeyDown(KeyCode.T))
         {
             isTopDown = !isTopDown;
@@ -52,14 +57,17 @@ public class PlayerController : MonoBehaviour {
         {
             Debug.Log("You're dead");
             Destroy(collider.gameObject);
+            Application.LoadLevel(Application.loadedLevel);
+            return;
         }
-        if(collider.tag == "CheckPoint")
+        if (collider.tag == "CheckPoint")
         {
             collider.GetComponent<CheckPoint>().GetCheckPoint();
+            Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
         }
     }
 
-    private void SetScale ()
+    private void SetScale()
     {
         if (isTopDown)
         {
@@ -72,7 +80,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     //checks for movement input and moves player
-    private void Move ()
+    private void Move()
     {
         float horizontalMovement = Input.GetAxis("Horizontal");
         float verticalMovement = Input.GetAxis("Vertical");
