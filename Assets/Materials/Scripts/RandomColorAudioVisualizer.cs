@@ -7,14 +7,14 @@ public class RandomColorAudioVisualizer : MonoBehaviour
     void Start()
     {
         var rend = this.GetComponent<Renderer>();
-        rend.material.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), 0.3f);
+        rend.material.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), 0.2f);
         //InvokeRepeating("ColorChange", 0, 5);
     }
 
     void ColorChange()
     {
         var rend = this.GetComponent<Renderer>();
-        rend.material.color = new Color(Random.Range(0.0f, 0f), Random.Range(0.0f, 0.7f), Random.Range(0.0f, 0f), 0.3f);
+        rend.material.color = new Color(Random.Range(0.0f, 0f), Random.Range(0.0f, 0.7f), Random.Range(0.0f, 0f), 0.2f);
     }
 
     public void CheckPointChange(string color)
