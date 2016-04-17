@@ -4,11 +4,8 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 1f;
     public BoxCollider boundaryBox;
-<<<<<<< HEAD
     private GameObject Spawner;
-=======
     public BoxCollider hitBox;
->>>>>>> origin/master
 
     private CameraController cameraController;
     private ParticleSystem[] engineParticles;
@@ -53,25 +50,11 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-<<<<<<< HEAD
-            Debug.Log("You're dead");
-            Destroy(collider.gameObject);
-            Application.LoadLevel(Application.loadedLevel);
-            return;
-        }
-        if (collider.tag == "CheckPoint")
-        {
-            collider.GetComponent<CheckPoint>().GetCheckPoint();
-            Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
-        }
-    }
-=======
             spearHead.Spear();
         }
         SetScale();
         Move();
-    }    
->>>>>>> origin/master
+    }
 
     private void SetScale()
     {
