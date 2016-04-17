@@ -10,6 +10,14 @@ public class CameraController : MonoBehaviour {
 
     private bool isTopDown;
 
+	public bool checkIsTopDown() { 
+		return isTopDown;
+	}
+
+	public bool checkIsSideways() {
+		return !isTopDown;
+	}
+
     private float shake = 0f;
 
     void Awake () {

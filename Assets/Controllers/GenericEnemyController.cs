@@ -13,6 +13,7 @@ public class GenericEnemyController : MonoBehaviour {
 	private float totalSpeed = 0.0f;
 	private float SceneSpeed = 0.0f;
 	private Vector3 bulletOffset = new Vector3( 0, 0, -1 );
+	private CameraController gameCamera;
 
 	public bool CanShoot = true;
 	public float swaySpeed = 10.0f;
@@ -45,12 +46,13 @@ public class GenericEnemyController : MonoBehaviour {
 		nextFireTime = Time.time + fireRate;
 		
 		SMNextMove = Time.time + 1.0f;
-
+		gameCamera = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
+		sceneObject = GameObject.Find ("MovingScene");
 		playerObject = GameObject.Find ("Player");
     }
 
 	void LateUpdate() { 
-		if (StrangeMovement && ( this.transform.position.z - 15 < playerObject.transform.position.z )) {
+		if (StrangeMovement &&  closeToScreen ) {
 
             if (!SMinit)
             {
@@ -59,31 +61,42 @@ public class GenericEnemyController : MonoBehaviour {
             }
 
 			if (SMNextMove < Time.time) {
-				SMNextMove = Time.time + 0.8f;
-				int typeMovement = Random.Range( 0, 3 );
+				SMNextMove = Time.time + 0.9f;
+				int typeMovement = Random.Range( 0, 8 );
 				Vector3 diff = new Vector3 (0, 0, 0);
 				float moveDist = totalSpeed * .25f;
+				bool top = gameCamera.checkIsTopDown ();
 
-				if (SMPos.y > 5) {
+				if( SMLastMove > 1 )
+					typeMovement = Random.Range( 0, 2 );
+				
+
+				if ((!top && SMPos.y > 5)  || (top && SMPos.x > 7)) {
 					typeMovement = 0;
 				}
 
-				if (SMPos.y < -5) {
+				if ((!top && SMPos.y < -5) || (top && SMPos.x < -7 )) {
 					typeMovement = 1;
 				}
 
 				if (SMLastMove < 2)
 					typeMovement = 2;
-
+					
 				switch (typeMovement) {
 					case 0:
-					diff.y = moveDist; 
+					if (top)
+						diff.x = moveDist;
+					else
+						diff.y = moveDist;
 						break;
-					case 1:
-					diff.y = -moveDist;
+				case 1:
+					if (top)
+						diff.x = -moveDist;
+					else
+						diff.y = -moveDist;
 						break;
 					default:
-					diff.z = moveDist;
+					diff.z = moveDist * 1.4f;
 						break;
 
 				}
@@ -93,7 +106,7 @@ public class GenericEnemyController : MonoBehaviour {
 				SMDestPos = SMPos - diff;
 			}
             
-			SMPos = Vector3.Lerp (SMPos, SMDestPos, .1f);
+			SMPos = Vector3.Lerp (SMPos, SMDestPos, .4f);
 			this.transform.position = SMPos;
 
 		}
