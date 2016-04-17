@@ -4,21 +4,25 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 1f;
     public BoxCollider boundaryBox;
+<<<<<<< HEAD
     private GameObject Spawner;
+=======
+    public BoxCollider hitBox;
+>>>>>>> origin/master
 
     private CameraController cameraController;
-    private BoxCollider playerBox;
     private ParticleSystem[] engineParticles;
 
     private bool isTopDown;
     private Vector3 movementVector;
+    private SpearheadController spearHead;
 
     void Awake()
     {
         Spawner = GameObject.FindGameObjectWithTag("Spawner");
         cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
-        playerBox = GetComponent<BoxCollider>();
         engineParticles = GetComponentsInChildren<ParticleSystem>();
+        spearHead = GetComponentInChildren<SpearheadController>();
     }
 
     // Use this for initialization
@@ -47,14 +51,9 @@ public class PlayerController : MonoBehaviour
         {
             cameraController.addShake(1f);
         }
-        SetScale();
-        Move();
-    }
-
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.tag == "HurtsPlayer")
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+<<<<<<< HEAD
             Debug.Log("You're dead");
             Destroy(collider.gameObject);
             Application.LoadLevel(Application.loadedLevel);
@@ -66,6 +65,13 @@ public class PlayerController : MonoBehaviour
             Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
         }
     }
+=======
+            spearHead.Spear();
+        }
+        SetScale();
+        Move();
+    }    
+>>>>>>> origin/master
 
     private void SetScale()
     {
@@ -103,31 +109,31 @@ public class PlayerController : MonoBehaviour
         }
 
         //keep player inside bounds -gotta be a better way to do this
-        if (playerBox.bounds.min.x < boundaryBox.bounds.min.x)
+        if (hitBox.bounds.min.x < boundaryBox.bounds.min.x)
         {
-            this.transform.Translate(new Vector3(boundaryBox.bounds.min.x - playerBox.bounds.min.x, 0f, 0f));
+            this.transform.Translate(new Vector3(boundaryBox.bounds.min.x - hitBox.bounds.min.x, 0f, 0f));
         }
-        else if (playerBox.bounds.max.x > boundaryBox.bounds.max.x)
+        else if (hitBox.bounds.max.x > boundaryBox.bounds.max.x)
         {
-            this.transform.Translate(new Vector3(boundaryBox.bounds.max.x - playerBox.bounds.max.x, 0f, 0f));
-        }
-
-        if (playerBox.bounds.min.y < boundaryBox.bounds.min.y)
-        {
-            this.transform.Translate(new Vector3(0f, boundaryBox.bounds.min.y - playerBox.bounds.min.y, 0f));
-        }
-        else if (playerBox.bounds.max.y > boundaryBox.bounds.max.y)
-        {
-            this.transform.Translate(new Vector3(0f, boundaryBox.bounds.max.y - playerBox.bounds.max.y, 0f));
+            this.transform.Translate(new Vector3(boundaryBox.bounds.max.x - hitBox.bounds.max.x, 0f, 0f));
         }
 
-        if (playerBox.bounds.min.z < boundaryBox.bounds.min.z)
+        if (hitBox.bounds.min.y < boundaryBox.bounds.min.y)
         {
-            this.transform.Translate(new Vector3(0f, 0f, boundaryBox.bounds.min.z - playerBox.bounds.min.z));
+            this.transform.Translate(new Vector3(0f, boundaryBox.bounds.min.y - hitBox.bounds.min.y, 0f));
         }
-        else if (playerBox.bounds.max.z > boundaryBox.bounds.max.z)
+        else if (hitBox.bounds.max.y > boundaryBox.bounds.max.y)
         {
-            this.transform.Translate(new Vector3(0f, 0f, boundaryBox.bounds.max.z - playerBox.bounds.max.z));
+            this.transform.Translate(new Vector3(0f, boundaryBox.bounds.max.y - hitBox.bounds.max.y, 0f));
+        }
+
+        if (hitBox.bounds.min.z < boundaryBox.bounds.min.z)
+        {
+            this.transform.Translate(new Vector3(0f, 0f, boundaryBox.bounds.min.z - hitBox.bounds.min.z));
+        }
+        else if (hitBox.bounds.max.z > boundaryBox.bounds.max.z)
+        {
+            this.transform.Translate(new Vector3(0f, 0f, boundaryBox.bounds.max.z - hitBox.bounds.max.z));
         }
     }
 }

@@ -8,3 +8,5 @@ Temp
 *.orig
 *.csproj
 Assets/MainScene.unity
+Assets/MainScene.unity
+ProjectSettings/TagManager.asset
