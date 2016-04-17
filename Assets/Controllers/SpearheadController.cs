@@ -31,6 +31,10 @@ public class SpearheadController : MonoBehaviour
 				fracturedObject.Explode (hit.point, 15f + Random.value * 30f);
 				cameraController.addShake (0.44444444444f); //the length of one beat of the song
 			}
+		} else {
+			//TODO make max length based on the end of the screen
+			transform.localPosition = new Vector3 (0f, 0f, 5f + 0.5f);
+			transform.localScale = new Vector3 (1f, 1f, 10f);
 		}
 	}
 
