@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SpearheadController : MonoBehaviour {
     private bool isActive = false;
+    private float timeTurnedActive; //needed to prevent isActive from immediately switching off
     private Vector3 originalPosition;
     private Vector3 originalScale;
 
@@ -13,6 +14,7 @@ public class SpearheadController : MonoBehaviour {
         transform.localScale = new Vector3(1f, 1f, 20f);
 
         isActive = true;
+        timeTurnedActive = Time.time;
     }
 
     void Awake()
@@ -25,7 +27,7 @@ public class SpearheadController : MonoBehaviour {
     {
         transform.localPosition = Vector3.Lerp(transform.localPosition, originalPosition, 0.1f);
         transform.localScale = Vector3.Lerp(transform.localScale, originalScale, 0.1f);
-        if (transform.localPosition.x - originalPosition.x < 0.01f)
+        if (transform.localPosition.x - originalPosition.x < 0.01f && isActive && Time.time - timeTurnedActive > 0.1f)
         {
             isActive = false;
         }
