@@ -40,11 +40,11 @@ public class GenericEnemyController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		SceneSpeed = GameObject.Find ("MovingScene").GetComponent<MovingSceneController> ().movementSpeed;
+
 		nextFireTime = Time.time + fireRate;
 		SMPos = SMDestPos = this.transform.position;
 		SMNextMove = Time.time + 1.0f;
-		totalSpeed = SceneSpeed + movementSpeed;
+
 		playerObject = GameObject.Find ("Player");
 	}
 
@@ -106,6 +106,9 @@ public class GenericEnemyController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		
+		SceneSpeed = GameObject.Find ("MovingScene").GetComponent<MovingSceneController> ().movementSpeed;
+		totalSpeed = SceneSpeed + movementSpeed;
 
 		bool pastPlayer = (this.transform.position.z - 5 < playerObject.transform.position.z);
 		bool withinShootingRange = (this.transform.position.z - 65 < playerObject.transform.position.z );
