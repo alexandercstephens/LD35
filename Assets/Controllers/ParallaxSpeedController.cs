@@ -3,7 +3,8 @@ using System.Collections;
 
 public class ParallaxSpeedController : MonoBehaviour {
 
-	public float desiredSpeed = 100.0f;
+	public float desiredParallaxSpeed = 100.0f;
+	public float desiredSceneSpeed = 15.0f;
 	public float time=1.0f;
 
 	private float startTime=0.0f;
@@ -24,6 +25,11 @@ public class ParallaxSpeedController : MonoBehaviour {
 		}
 	}
 
+	float GetNewSpeed( float spd, float dspd ) {
+		float timeElapsed = ( Time.time - startTime ) / time;
+		return Mathf.Lerp ( spd, dspd, timeElapsed);
+	}
+
 	void OnTriggerStay( Collider collider ) {
 		
 
@@ -31,13 +37,11 @@ public class ParallaxSpeedController : MonoBehaviour {
 
 			GameObject obj = ( GameObject )collider.gameObject;
 			GameObject scroller = (GameObject)GameObject.Find ("RainbowSideScroller");
+			GameObject movingScene = (GameObject)GameObject.Find ("MovingScene");
 
-			float curSpeed = scroller.GetComponent<ParallaxController> ().speed;
-			float timeElapsed = ( Time.time - startTime ) / time;
+			scroller.GetComponent<ParallaxController> ().speed = GetNewSpeed (scroller.GetComponent<ParallaxController> ().speed, desiredParallaxSpeed);
+			movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (movingScene.GetComponent<MovingSceneController>().movementSpeed, desiredSceneSpeed);
 
-			float newSpeed = Mathf.Lerp (curSpeed, desiredSpeed, timeElapsed);
-			scroller.GetComponent<ParallaxController> ().speed = newSpeed;
-			Debug.Log (newSpeed);
 		}
 
 	}
