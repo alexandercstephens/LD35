@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class AudioVisualizerScaling : MonoBehaviour
 {
-    public float xRot, yRot, zRot, xPos, yPos, zPos;
     private CameraController cameraController;
     private GameObject[] RAV;
     private List<RandomColorAudioVisualizer> RAVScript;
@@ -24,7 +23,6 @@ public class AudioVisualizerScaling : MonoBehaviour
     //An array that stores the Transforms of all instantiated cubes  
     private Transform[] cubesTransform;
     //The velocity that the cubes will drop  
-    private bool isTopDown;
     private Vector3 gravity = new Vector3(0.0f, 0.5f, 0.0f);
 
     void Awake()
@@ -46,7 +44,7 @@ public class AudioVisualizerScaling : MonoBehaviour
         //The cubesTransform array should be initialized with the same length as the samples array  
         cubesTransform = new Transform[samples.Length];
         //Center the audio visualization line at the X axis, according to the samples array length  
-        goTransform.position = new Vector3(goTransform.position.x, goTransform.position.y, goTransform.position.z - samples.Length / 2);
+        goTransform.position = new Vector3(goTransform.position.x, goTransform.position.y, goTransform.position.z);
         // goTransform.LookAt(Camera.main.transform);
 
         //Create a temporary GameObject, that will serve as a reference to the most recent cloned cube  
@@ -61,11 +59,10 @@ public class AudioVisualizerScaling : MonoBehaviour
             cubesTransform[i] = tempCube.GetComponent<Transform>();
             //Make the cube a child of this game object  
             cubesTransform[i].parent = goTransform;
-            cubesTransform[i].transform.position = new Vector3(goTransform.position.x + i, goTransform.position.y, goTransform.position.z);
+            cubesTransform[i].transform.localPosition = new Vector3(i, 0f, 0f);
+            cubesTransform[i].transform.localRotation = Quaternion.identity;
+            cubesTransform[i].transform.localScale = Vector3.one;
         }
-        this.transform.position = new Vector3(xPos, yPos, zPos);
-        this.transform.Rotate(xRot, yRot, zRot);
-        this.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
     }
 
     void Update()
@@ -80,8 +77,7 @@ public class AudioVisualizerScaling : MonoBehaviour
                  * cube. However, set it's Y element according to the current sample.*/
                 cubePos.Set(cubesTransform[i].localScale.x, Mathf.Clamp(samples[i] * (100 + i * 100), 0.1f, 500), cubesTransform[i].localScale.z);
 
-                //If the new cubePos.y is greater than the current cube position
-                  
+                //If the new cubePos.y is greater than the current cube position                  
                 if (cubePos.y >= cubesTransform[i].localScale.y)
                 {
                     //Set the cube to the new Y position  
