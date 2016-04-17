@@ -37,8 +37,10 @@ public class ParallaxSpeedController : MonoBehaviour {
 
 			GameObject obj = ( GameObject )collider.gameObject;
 			GameObject scroller = (GameObject)GameObject.Find ("RainbowSideScroller");
-			GameObject movingScene = (GameObject)GameObject.Find ("MovingScene");
+            GameObject bScroller = (GameObject)GameObject.Find("RainbowBottomScroller");
+            GameObject movingScene = (GameObject)GameObject.Find ("MovingScene");
 
+            bScroller.GetComponent<ParallaxController>().speed = GetNewSpeed(scroller.GetComponent<ParallaxController>().speed, desiredParallaxSpeed);
 			scroller.GetComponent<ParallaxController> ().speed = GetNewSpeed (scroller.GetComponent<ParallaxController> ().speed, desiredParallaxSpeed);
 			movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (movingScene.GetComponent<MovingSceneController>().movementSpeed, desiredSceneSpeed);
 

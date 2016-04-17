@@ -5,6 +5,7 @@ public class GenericEnemyController : MonoBehaviour {
 
 	private Vector3 SMPos;
 	private Vector3 SMDestPos;
+    private bool SMinit = false;
 	private int SMLastMove = 0;
 	private float SMNextMove = 0.0f;
 	private float nextFireTime = 0.0f;
@@ -42,17 +43,24 @@ public class GenericEnemyController : MonoBehaviour {
 	void Start () {
 
 		nextFireTime = Time.time + fireRate;
-		SMPos = SMDestPos = this.transform.position;
+		
 		SMNextMove = Time.time + 1.0f;
 
 		playerObject = GameObject.Find ("Player");
 	}
 
 	void LateUpdate() { 
-		if (StrangeMovement) {
+		if (StrangeMovement && ( this.transform.position.z - 15 < playerObject.transform.position.z )) {
+
+            if (!SMinit)
+            {
+                SMinit = true;
+                SMPos = SMDestPos = this.transform.position;
+            }
+
 			if (SMNextMove < Time.time) {
 				SMNextMove = Time.time + 0.8f;
-				int typeMovement = Random.Range( 0, 4 );
+				int typeMovement = Random.Range( 0, 3 );
 				Vector3 diff = new Vector3 (0, 0, 0);
 				float moveDist = totalSpeed * .25f;
 
@@ -84,9 +92,13 @@ public class GenericEnemyController : MonoBehaviour {
 
 				SMDestPos = SMPos - diff;
 			}
+            
 			SMPos = Vector3.Lerp (SMPos, SMDestPos, .1f);
 			this.transform.position = SMPos;
+
 		}
+
+        
 	}
 
 	void FixedUpdate() { 
@@ -98,8 +110,9 @@ public class GenericEnemyController : MonoBehaviour {
 
 			swayRotation =  ( ( swayRotation > 360.0f )? swayRotation - 360.0f : swayRotation ) + delta * Time.deltaTime;
 			curPos.y = curPos.y + .08f * Mathf.Sin( Mathf.Deg2Rad * swayRotation );
+            curPos.x = curPos.x + .08f * Mathf.Sin(Mathf.Deg2Rad * swayRotation);
 			this.transform.position = curPos;
-
+           
 		}
 
 	}
@@ -112,8 +125,8 @@ public class GenericEnemyController : MonoBehaviour {
 
 		bool pastPlayer = (this.transform.position.z - 5 < playerObject.transform.position.z);
 		bool withinShootingRange = (this.transform.position.z - 65 < playerObject.transform.position.z );
-
-		if( this.transform.position.z - 35 < playerObject.transform.position.z )
+      
+        if( this.transform.position.z - 35 < playerObject.transform.position.z )
 			this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
 
 		if (!pastPlayer) {
