@@ -3,13 +3,11 @@ using System.Collections;
 
 public class RandomColorAudioVisualizer : MonoBehaviour
 {
-    private GameObject[] Cp;
     // Use this for initialization
     void Start()
     {
         var rend = this.GetComponent<Renderer>();
         rend.material.color = new Color(Random.Range(0.0f, 1f), Random.Range(0.0f, 1f), Random.Range(0.0f, 1f));
-        Cp = GameObject.FindGameObjectsWithTag("CheckPoint");
         //InvokeRepeating("ColorChange", 0, 5);
     }
 
