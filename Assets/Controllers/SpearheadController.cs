@@ -17,9 +17,11 @@ public class SpearheadController : MonoBehaviour
 	// Use this for initialization
 	public void Spear ()
 	{
+		var distanceToScreenEnd = 7.5f - transform.position.z;
+
 		RaycastHit hit;
 		//TODO make max length based on the end of the screen
-		if (Physics.BoxCast (transform.position, boxCollider.bounds.extents, Vector3.forward, out hit, Quaternion.identity, 20f, enemies)) {
+		if (Physics.BoxCast (transform.position, boxCollider.bounds.extents, Vector3.forward, out hit, Quaternion.identity, distanceToScreenEnd + 3f, enemies)) {
 			var distanceToEnemy = (hit.point - (transform.position - boxCollider.bounds.extents)).z;
 
 			transform.localPosition = new Vector3 (0f, 0f, distanceToEnemy * 0.5f + 0.5f);
@@ -33,8 +35,8 @@ public class SpearheadController : MonoBehaviour
 			}
 		} else {
 			//TODO make max length based on the end of the screen
-			transform.localPosition = new Vector3 (0f, 0f, 5f + 0.5f);
-			transform.localScale = new Vector3 (1f, 1f, 10f);
+			transform.localPosition = new Vector3 (0f, 0f, distanceToScreenEnd * 0.5f + 0.5f);
+			transform.localScale = new Vector3 (1f, 1f, distanceToScreenEnd);
 		}
 	}
 
