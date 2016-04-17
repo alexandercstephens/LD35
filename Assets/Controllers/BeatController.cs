@@ -107,6 +107,7 @@ public class BeatController : MonoBehaviour
     private void SetSource()
     {
         currentSource = newSource;
+        Destroy(currentLevel);
         currentLevel = Instantiate(newScene);
         checkpointTotalTime = totalTime;
         checkpointLastBeat = lastBeat;

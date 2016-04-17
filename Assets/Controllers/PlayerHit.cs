@@ -23,7 +23,7 @@ public class PlayerHit : MonoBehaviour {
         if (collider.tag == "HurtsPlayer")
         {
             //Debug.Log("You're dead");
-            beatController.RestartLevel();
+            //beatController.RestartLevel();
             //Destroy(collider.gameObject);
             //Application.LoadLevel(Application.loadedLevel);
         }
