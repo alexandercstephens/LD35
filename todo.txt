@@ -1,0 +1,15 @@
+make player death
+design levels
+find sound effects
+use enemy and player disintegration on hit
+fix noise script on enemies
+change controls to better buttons
+don't let player's attack reach off of the screen
+design bosses
+make some enemies die by multiple attacks
+use screenshake, possibly at ending
+change colors between levels
+change engine color gradients on forward/backward/stationary movement
+make shader outline for player
+make custom outlined shader for engine particles
+think of a name
