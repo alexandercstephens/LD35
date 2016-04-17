@@ -27,7 +27,11 @@ public class GenericEnemyController : MonoBehaviour {
 
 	public GameObject bulletPrefab;
 	private GameObject playerObject;
+<<<<<<< HEAD
 	private GameObject sceneObject;
+=======
+    private MovingSceneController sceneController;
+>>>>>>> origin/master
 
 	GameObject CreateBullet( Vector3 pos ) {
 		return CreateBullet (pos, Quaternion.LookRotation (pos - playerObject.transform.position) );
@@ -51,7 +55,10 @@ public class GenericEnemyController : MonoBehaviour {
 		gameCamera = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
 		sceneObject = GameObject.Find ("MovingScene");
 		playerObject = GameObject.Find ("Player");
-	}
+
+        sceneController = GameObject.FindWithTag("Checkpoint").GetComponent<MovingSceneController>();
+
+    }
 
 	void LateUpdate() { 
 		if (StrangeMovement &&  closeToScreen ) {
@@ -134,8 +141,12 @@ public class GenericEnemyController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD
 		
 		SceneSpeed = GameObject.Find("MovingScene").GetComponent<MovingSceneController>().movementSpeed;
+=======
+        SceneSpeed = sceneController.movementSpeed;
+>>>>>>> origin/master
 		totalSpeed = SceneSpeed + movementSpeed;
 
 		bool pastPlayer = (this.transform.position.z - 5 < playerObject.transform.position.z);

@@ -9,7 +9,7 @@ public class AudioVisualizerScaling : MonoBehaviour
     private List<RandomColorAudioVisualizer> RAVScript;
 
     //An AudioSource object so the music can be played  
-    private AudioSource aSource;
+    public AudioSource[] audioSources;
     //A float array that stores the audio samples  
     public float[] samples = new float[64];
     //A renderer that will draw a line at the screen  
@@ -29,7 +29,7 @@ public class AudioVisualizerScaling : MonoBehaviour
     {
         //Get and store a reference to the following attached components:  
         //AudioSource  
-        this.aSource = GameObject.Find("Audio Source").GetComponent<AudioSource>();
+        this.audioSources = GameObject.Find("AudioSources").GetComponentsInChildren<AudioSource>();
         //LineRenderer  
         this.lRenderer = GetComponent<LineRenderer>();
         //Transform  
@@ -67,8 +67,14 @@ public class AudioVisualizerScaling : MonoBehaviour
 
     void Update()
     {
-        //Obtain the samples from the frequency bands of the attached AudioSource  
-        aSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
+        foreach (var audioSource in audioSources)
+        {
+            if (audioSource.isPlaying)
+            {
+                //Obtain the samples from the frequency bands of the attached AudioSource  
+                audioSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
+            }
+        }
         //For each sample  
         //this.transform.LookAt(Camera.main.transform.position);
         for (int i = 0; i < samples.Length; i++)

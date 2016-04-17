@@ -6,12 +6,15 @@ public class PlayerHit : MonoBehaviour {
 
     public Text Score;
 
+    private BeatController beatController;
+
     private GameObject Spawner;
     private GameObject ScoreValue;
 
     void Awake()
     {
         Spawner = GameObject.FindGameObjectWithTag("Spawner");
+        beatController = GameObject.Find("BeatController").GetComponent<BeatController>();
         //ScoreValue = GameObject.FindGameObjectWithTag("Score");
     }
 
@@ -19,9 +22,10 @@ public class PlayerHit : MonoBehaviour {
     {
         if (collider.tag == "HurtsPlayer")
         {
-            Debug.Log("You're dead");
+            //Debug.Log("You're dead");
+            beatController.RestartLevel();
             //Destroy(collider.gameObject);
-            Application.LoadLevel(Application.loadedLevel);
+            //Application.LoadLevel(Application.loadedLevel);
         }
         if (collider.tag == "CheckPoint")
         {
