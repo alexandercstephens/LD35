@@ -3,6 +3,9 @@ using System.Collections;
 
 public class ParallaxSpeedController : MonoBehaviour {
 
+	private float startParallaxSpeed = 0.0f;
+	private float startSceneSpeed = 0.0f;
+
 	public float desiredParallaxSpeed = 100.0f;
 	public float desiredSceneSpeed = 15.0f;
 	public float time=1.0f;
@@ -21,7 +24,12 @@ public class ParallaxSpeedController : MonoBehaviour {
 	void OnTriggerEnter( Collider collider ) {
 
 		if (collider.tag == "Player") {
+			GameObject scroller = (GameObject)GameObject.Find ("RainbowSideScroller");
+			GameObject movingScene = (GameObject)GameObject.Find ("MovingScene");
+
 			startTime = Time.time;
+			startParallaxSpeed = scroller.GetComponent<ParallaxController> ().speed;
+			startSceneSpeed = movingScene.GetComponent<MovingSceneController> ().movementSpeed;
 		}
 	}
 
@@ -40,9 +48,9 @@ public class ParallaxSpeedController : MonoBehaviour {
             GameObject bScroller = (GameObject)GameObject.Find("RainbowBottomScroller");
             GameObject movingScene = (GameObject)GameObject.Find ("MovingScene");
 
-            bScroller.GetComponent<ParallaxController>().speed = GetNewSpeed(scroller.GetComponent<ParallaxController>().speed, desiredParallaxSpeed);
-			scroller.GetComponent<ParallaxController> ().speed = GetNewSpeed (scroller.GetComponent<ParallaxController> ().speed, desiredParallaxSpeed);
-			movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (movingScene.GetComponent<MovingSceneController>().movementSpeed, desiredSceneSpeed);
+            bScroller.GetComponent<ParallaxController>().speed = GetNewSpeed(startParallaxSpeed, desiredParallaxSpeed);
+			scroller.GetComponent<ParallaxController> ().speed = GetNewSpeed (startParallaxSpeed, desiredParallaxSpeed);
+			movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (startSceneSpeed, desiredSceneSpeed);
 
 		}
 
