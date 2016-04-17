@@ -23,37 +23,37 @@ public class RandomColorAudioVisualizer : MonoBehaviour
         if (color == "Cp1")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0f,0.1f), Random.Range(0f, 0.1f));
+            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0f,0.1f), Random.Range(0f, 0.1f), 0.2f);
         }
         if (color == "Cp2")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0f, 0.1f), Random.Range(0f, 0.1f), Random.Range(0.2f, 1f));
+            rend.material.color = new Color(Random.Range(0f, 0.1f), Random.Range(0f, 0.1f), Random.Range(0.2f, 1f), 0.2f);
         }
         if (color == "Cp3")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(0, Random.Range(0.2f, 1f), 0);
+            rend.material.color = new Color(0, Random.Range(0.2f, 1f), 0, 0.2f);
         }
         if (color == "Cp4")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0);
+            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0, 0.2f);
         }
         if (color == "Cp5")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), 0, Random.Range(0.2f, 1f));
+            rend.material.color = new Color(Random.Range(0.2f, 1f), 0, Random.Range(0.2f, 1f), 0.2f);
         }
         if (color == "Cp6")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(0, Random.Range(0.2f, 1f), Random.Range(0.2f, 1f));
+            rend.material.color = new Color(0, Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0.2f);
         }
         if (color == "Cp7")
         {
             var rend = this.GetComponent<Renderer>();
-            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), Random.Range(0.2f, 1f));
+            rend.material.color = new Color(Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), Random.Range(0.2f, 1f), 0.2f);
         }
 
     }

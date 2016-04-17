@@ -3,7 +3,6 @@ using System.Collections;
 
 public class SpawnPoint : MonoBehaviour {
 
-    public GameObject MovingScene;
 
     void Awake()
     {

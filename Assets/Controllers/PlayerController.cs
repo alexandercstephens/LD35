@@ -4,7 +4,6 @@ public class PlayerController : MonoBehaviour
 {
     public float movementSpeed = 1f;
     public BoxCollider boundaryBox;
-    private GameObject Spawner;
     public BoxCollider hitBox;
 
     private CameraController cameraController;
@@ -16,7 +15,6 @@ public class PlayerController : MonoBehaviour
 
     void Awake()
     {
-        Spawner = GameObject.FindGameObjectWithTag("Spawner");
         cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
         engineParticles = GetComponentsInChildren<ParticleSystem>();
         spearHead = GetComponentInChildren<SpearheadController>();

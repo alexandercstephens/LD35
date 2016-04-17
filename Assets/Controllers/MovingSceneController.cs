@@ -13,7 +13,7 @@ public class MovingSceneController : MonoBehaviour {
 
 	void Start() {
         Spawner = GameObject.FindGameObjectWithTag("Spawner");
-        this.transform.Translate (0.0f, 0.0f, -Spawner.transform.position.z +2);
+        this.transform.Translate (0.0f, 0.0f, -Spawner.transform.position.z+1);
         //Instantiate(MovingScene, new Vector3(0, 0, -Spawner.transform.position.z), Quaternion.identity);
 	}
 

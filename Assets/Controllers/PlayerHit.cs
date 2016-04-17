@@ -1,21 +1,39 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerHit : MonoBehaviour {
+
+    public Text Score;
+
+    private GameObject Spawner;
+    private GameObject ScoreValue;
+
+    void Awake()
+    {
+        Spawner = GameObject.FindGameObjectWithTag("Spawner");
+        ScoreValue = GameObject.FindGameObjectWithTag("Score");
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "HurtsPlayer")
         {
             Debug.Log("You're dead");
             Destroy(collider.gameObject);
+            Application.LoadLevel(Application.loadedLevel);
         }
         if (collider.tag == "CheckPoint")
         {
             collider.GetComponent<CheckPoint>().GetCheckPoint();
+            Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
+            var score = Score.text.Replace("Score:", "");
+            GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<HUD>().SetScoreValue(float.Parse(score));
+           
         }
         //    Debug.Log("You're dead");
         //    Destroy(collider.gameObject);
-        //    Application.LoadLevel(Application.loadedLevel);
+        //    
         //    return;
         //}
         //    if (collider.tag == "CheckPoint")
