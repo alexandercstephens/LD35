@@ -20,7 +20,7 @@ public class PlayerHit : MonoBehaviour {
         if (collider.tag == "HurtsPlayer")
         {
             Debug.Log("You're dead");
-            Destroy(collider.gameObject);
+            //Destroy(collider.gameObject);
             Application.LoadLevel(Application.loadedLevel);
         }
         if (collider.tag == "CheckPoint")
