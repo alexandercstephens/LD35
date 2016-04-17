@@ -3,11 +3,11 @@ using System.Collections;
 
 public class CheckPoint : MonoBehaviour
 {
-    protected string Check;
+    public GameObject[] visualizers;
     // Use this for initialization
     void Start()
     {
-
+        visualizers = GameObject.FindGameObjectsWithTag("AudioCube");
     }
 
     // Update is called once per frame
@@ -16,8 +16,11 @@ public class CheckPoint : MonoBehaviour
 
     }
 
-    void OnTriggerEnter(Collider other)
+    public void GetCheckPoint()
     {
-
+        foreach(var v in visualizers)
+        {
+            v.GetComponent<RandomColorAudioVisualizer>().CheckPointChange(this.name);
+        }
     }
 }

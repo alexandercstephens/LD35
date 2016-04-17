@@ -53,6 +53,10 @@ public class PlayerController : MonoBehaviour {
             Debug.Log("You're dead");
             Destroy(collider.gameObject);
         }
+        if(collider.tag == "CheckPoint")
+        {
+            collider.GetComponent<CheckPoint>().GetCheckPoint();
+        }
     }
 
     private void SetScale ()
