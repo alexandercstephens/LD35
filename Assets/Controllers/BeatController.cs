@@ -41,6 +41,8 @@ public class BeatController : MonoBehaviour
     public Text shiftText;
 
     public SpearheadController spear;
+
+    private int beatFrames = 0;
     
 	void Start ()
 	{
@@ -54,6 +56,10 @@ public class BeatController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        if (beatFrames != 0)
+        {
+            beatFrames -= 1;
+        }
         switch(state)
         {
             case "start":
@@ -65,9 +71,20 @@ public class BeatController : MonoBehaviour
                 }
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))//TODO call this chunk of code when the boss is defeated
         {
             currentSource.loop = false;
+            if (nextLevelNumber >= levels.Length - 1)
+            {
+                var numBeatsLeft = 0;
+                var timeLeft = currentSource.clip.length - currentSource.time;
+                while (timeLeft > 0) {
+                    timeLeft -= 0.44444444444f;
+                    if (timeLeft > 0) numBeatsLeft += 1;
+                }
+                InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
+                Invoke("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
+            }
         }
 
         if (currentSource != null)
@@ -98,10 +115,15 @@ public class BeatController : MonoBehaviour
                 {
                     if (canPlayerAttack) spear.Spear();
                     beatNumber = 1;
+                    beatFrames = 1; //change to 2 if necessary
                 }
             }
         }        
 	}
+    public bool IsOnBeat()
+    {
+        return beatFrames != 0;
+    }
 
     public void SetCanAttack(bool b)
     {
@@ -134,10 +156,6 @@ public class BeatController : MonoBehaviour
             {
                 newSource.PlayScheduled(AudioSettings.dspTime + currentSource.clip.length - currentSource.time);
                 Invoke("SetSource", currentSource.clip.length - currentSource.time);
-                if (nextLevelNumber == levels.Length)
-                {
-                    InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time, 0.4444444444f);
-                }
             }
             else
             {
@@ -176,13 +194,13 @@ public class BeatController : MonoBehaviour
         else
             cameraController.addShake(4f);
         numShakes -= 1;
-        if (numShakes == 0)
-        {
-            CancelInvoke();
-            cameraController.killShake();
-            endScreen.enabled = true;
-            Invoke("ShowEndText", 0.8888888888889f);
-        }
+    }
+    private void EndGame()
+    {
+        CancelInvoke();
+        cameraController.killShake();
+        endScreen.enabled = true;
+        Invoke("ShowEndText", 0.8888888888889f);
     }
     private void ShowEndText()
     {

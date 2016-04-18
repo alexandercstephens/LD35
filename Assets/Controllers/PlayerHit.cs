@@ -6,15 +6,15 @@ public class PlayerHit : MonoBehaviour {
 
     public Text Score;
     public ParallaxController[] parallaxes;
+    public Canvas screenFlash;
+    public Image screenFlashPanel;
 
     private BeatController beatController;
-
-    private GameObject Spawner;
-    private GameObject ScoreValue;
+    
+    //private GameObject ScoreValue;
 
     void Awake()
     {
-        Spawner = GameObject.FindGameObjectWithTag("Spawner");
         beatController = GameObject.Find("BeatController").GetComponent<BeatController>();
         //ScoreValue = GameObject.FindGameObjectWithTag("Score");
     }
@@ -24,32 +24,32 @@ public class PlayerHit : MonoBehaviour {
         if (collider.tag == "HurtsPlayer")
         {
             //Debug.Log("You're dead");
-            //beatController.RestartLevel();
+            beatController.RestartLevel();
             foreach (var parallax in parallaxes)
             {
                 parallax.ShiftHalf();
             }
+            screenFlash.enabled = true;
+            StartCoroutine("Transparify");
             //Destroy(collider.gameObject);
             //Application.LoadLevel(Application.loadedLevel);
         }
         if (collider.tag == "CheckPoint")
         {
             collider.GetComponent<CheckPoint>().GetCheckPoint();
-            Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
             //var score = Score.text.Replace("Score:", "");
             //GameObject.FindGameObjectWithTag("HudCanvas").GetComponent<HUD>().SetScoreValue(float.Parse(score));
            
         }
-        //    Debug.Log("You're dead");
-        //    Destroy(collider.gameObject);
-        //    
-        //    return;
-        //}
-        //    if (collider.tag == "CheckPoint")
-        //    {
-        //        collider.GetComponent<CheckPoint>().GetCheckPoint();
-        //        Spawner.GetComponent<SpawnPoint>().SetSpawn(collider.transform);
-        //    }
-        //}
+    }
+
+    IEnumerator Transparify()
+    {
+        for (var t = 1f; t >= 0f; t -= 0.1f)
+        {
+            screenFlashPanel.color = new Color(1f, 1f, 1f, t);
+            yield return new WaitForSeconds(0.05555555f);
+        }
+        screenFlash.enabled = false;
     }
 }

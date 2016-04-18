@@ -2,7 +2,6 @@ to do now:
 make all enemies break
 design levels
 design bosses
-show flash to indicate player death
 
 
 
@@ -18,6 +17,7 @@ make visible checkpoints
 find sound effects
 make exploded chunks fade away
 change colors between levels
+make background less bright?
 
 
 
