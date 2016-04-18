@@ -16,6 +16,8 @@ public class MovingSceneController : MonoBehaviour {
     public float audioMinGreen = 0f;
     public float audioMaxGreen = 1f;
 
+    public float cameraSize = 12f;
+
     private BeatController beatController;
     private PlayerController playerController;
     private ParallaxController scroller;
@@ -45,7 +47,13 @@ public class MovingSceneController : MonoBehaviour {
         foreach (var v in visualizers) 
         {
             v.GetComponent<RandomColorAudioVisualizer>().SetColorRange(audioMinRed, audioMaxRed, audioMinGreen, audioMaxGreen, audioMinBlue, audioMaxBlue);
-        }    
+        }
+
+        Camera.main.orthographicSize = cameraSize;
+        if (cameraSize != 12f) //TODO not this
+        {
+            GameObject.Find("BoundaryBox").transform.localScale = new Vector3(46f, 35f, 26f);
+        }
     }
 
     // Update is called once per frame

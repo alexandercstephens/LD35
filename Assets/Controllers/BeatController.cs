@@ -85,9 +85,18 @@ public class BeatController : MonoBehaviour
 				StartLevel (levels [nextLevelNumber]);
 			}
 
-			//TODO write this in a way that it won't get off sync,
-			//should suffice for one level though
-			if (currentSource.time - lastBeat > 0.44444444444f) {
+            if (currentSource.time < lastBeat)
+            {
+                lastBeat = 0f;
+                beatNumber += 1;
+                if (beatNumber == 5)
+                {
+                    if (canPlayerAttack)
+                        spear.Spear();
+                    beatNumber = 1;
+                    beatFrames = 1; //change to 2 if necessary
+                }
+            } else if (currentSource.time - lastBeat > 0.44444444444f) {
 				lastBeat = lastBeat + 0.44444444444f;
 				beatNumber += 1;
 				if (beatNumber == 5) {

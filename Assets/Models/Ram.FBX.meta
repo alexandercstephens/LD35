@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 64f6fd30b29150343a59347b73982a00
-timeCreated: 1460914749
+guid: e3b0eaf3ea225744c9bd5b5937b535e7
+timeCreated: 1461020696
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: GeoSphere003
+    4300000: Pyramid001
   materials:
     importMaterials: 1
     materialName: 0
