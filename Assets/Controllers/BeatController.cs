@@ -33,8 +33,14 @@ public class BeatController : MonoBehaviour
     private bool waitingOnLevelStart = false;
 
     private bool canPlayerAttack = false;
+    private bool hasShownPlayerAttackMessage = false;
+    public Canvas attackMessage;
+    public Text attackText;
 
-	public SpearheadController spear;
+    public Canvas shiftMessage;
+    public Text shiftText;
+
+    public SpearheadController spear;
     
 	void Start ()
 	{
@@ -100,6 +106,18 @@ public class BeatController : MonoBehaviour
     public void SetCanAttack(bool b)
     {
         canPlayerAttack = b;
+        if (b && !hasShownPlayerAttackMessage)
+        {
+            attackMessage.enabled = true;
+            hasShownPlayerAttackMessage = true;
+            StartCoroutine("MakeAttackTextTransparent");
+        }
+    }
+
+    public void ShowShiftMessage()
+    {
+        shiftMessage.enabled = true;
+        StartCoroutine("MakeShiftTextTransparent");
     }
 
     public void StartLevel(GameObject nextScene)
@@ -182,8 +200,26 @@ public class BeatController : MonoBehaviour
         for (var t = 2.5f; t >= 0f; t -= 0.1f)
         {
             startText.color = new Color(1f, 1f, 1f, t);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.11111f);
         }
         startScreen.enabled = false;
+    }
+    private IEnumerator MakeAttackTextTransparent()
+    {
+        for (var t = 2.5f; t >= 0f; t -= 0.1f)
+        {
+            attackText.color = new Color(1f, 1f, 1f, t);
+            yield return new WaitForSeconds(0.11111f);
+        }
+        attackMessage.enabled = false;
+    }
+    private IEnumerator MakeShiftTextTransparent()
+    {
+        for (var t = 2.5f; t >= 0f; t -= 0.1f)
+        {
+            shiftText.color = new Color(1f, 1f, 1f, t);
+            yield return new WaitForSeconds(0.11111f);
+        }
+        shiftMessage.enabled = false;
     }
 }

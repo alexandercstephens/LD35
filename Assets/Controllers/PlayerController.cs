@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public BoxCollider boundaryBox;
     public BoxCollider hitBox;
 
+    private BeatController beatController;
     private CameraController cameraController;
     private ParticleSystem[] engineParticles;
 
@@ -14,9 +15,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 movementVector;
     private SpearheadController spearHead;
 
+    private bool hasShownShiftMessage = false;
+
     void Awake()
     {
         cameraController = GameObject.Find("CameraManager").GetComponent<CameraController>();
+        beatController = GameObject.Find("BeatController").GetComponent<BeatController>();
         engineParticles = GetComponentsInChildren<ParticleSystem>();
         spearHead = GetComponentInChildren<SpearheadController>();
     }
@@ -31,7 +35,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canShift && (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E)))
+        if (canShift && (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)))
         {
             isTopDown = !isTopDown;
             if (isTopDown)
@@ -43,14 +47,6 @@ public class PlayerController : MonoBehaviour
                 cameraController.SetSideView();
             }
         }
-        if (Input.GetKeyDown(KeyCode.P)) //TODO remove; for debugging only
-        {
-            cameraController.addShake(1f);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            spearHead.Spear();
-        }
         SetScale();
         Move();
     }
@@ -58,6 +54,11 @@ public class PlayerController : MonoBehaviour
     public void SetCanShift(bool b)
     {
         canShift = b;
+        if (b && !hasShownShiftMessage)
+        {
+            beatController.ShowShiftMessage();
+            hasShownShiftMessage = true;
+        }
     }
 
     private void SetScale()
