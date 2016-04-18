@@ -22,6 +22,7 @@ change colors between levels
 make background less bright?
 change object colors/shaders
 make mini boss wall chunks break away
+make noise enemies use a flat shader
 
 
 
