@@ -71,7 +71,7 @@ public class BeatController : MonoBehaviour
                 }
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L))//TODO call this chunk of code when the boss is defeated
         {
             currentSource.loop = false;
             if (nextLevelNumber >= levels.Length - 1)

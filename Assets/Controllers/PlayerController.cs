@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (beatController.IsOnBeat()) Debug.Log("beat");
         if (canShift && (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Space)))
         {
             isTopDown = !isTopDown;

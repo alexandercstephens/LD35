@@ -17,7 +17,13 @@ public class RandomColorAudioVisualizer : MonoBehaviour
 		rend.material.color = new Color (Random.Range (0.0f, 0f), Random.Range (0.0f, 0.7f), Random.Range (0.0f, 0f), 0.2f);
 	}
 
-	public void CheckPointChange (string color)
+    public void SetColorRange(float audioMinRed, float audioMaxRed, float audioMinGreen, float audioMaxGreen, float audioMinBlue, float audioMaxBlue)
+    {
+        var rend = this.GetComponent<Renderer>();
+        rend.material.color = new Color(Random.Range(audioMinRed, audioMaxRed), Random.Range(audioMinGreen, audioMaxGreen), Random.Range(audioMinBlue, audioMaxBlue), 0.2f);
+    }
+
+    public void CheckPointChange (string color)
 	{
         if (color == "Cp1") {
 			var rend = this.GetComponent<Renderer> ();
