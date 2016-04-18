@@ -32,6 +32,8 @@ public class BeatController : MonoBehaviour
     private int nextLevelNumber = 0;
     private bool waitingOnLevelStart = false;
 
+    private bool canPlayerAttack = false;
+
 	public SpearheadController spear;
     
 	void Start ()
@@ -88,12 +90,17 @@ public class BeatController : MonoBehaviour
                 beatNumber += 1;
                 if (beatNumber == 5)
                 {
-                    spear.Spear();
+                    if (canPlayerAttack) spear.Spear();
                     beatNumber = 1;
                 }
             }
         }        
 	}
+
+    public void SetCanAttack(bool b)
+    {
+        canPlayerAttack = b;
+    }
 
     public void StartLevel(GameObject nextScene)
     {

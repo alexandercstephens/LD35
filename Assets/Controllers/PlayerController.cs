@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private CameraController cameraController;
     private ParticleSystem[] engineParticles;
 
+    private bool canShift;
     private bool isTopDown;
     private Vector3 movementVector;
     private SpearheadController spearHead;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (canShift && (Input.GetKeyDown(KeyCode.T) || Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.E)))
         {
             isTopDown = !isTopDown;
             if (isTopDown)
@@ -52,6 +53,11 @@ public class PlayerController : MonoBehaviour
         }
         SetScale();
         Move();
+    }
+
+    public void SetCanShift(bool b)
+    {
+        canShift = b;
     }
 
     private void SetScale()
