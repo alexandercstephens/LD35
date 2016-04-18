@@ -36,6 +36,9 @@ public class BeatController : MonoBehaviour
 	public Canvas shiftMessage;
 	public Text shiftText;
 
+	public Canvas checkpointCanvas;
+	public Text checkpointText;
+
 	public SpearheadController spear;
 
 	private int beatFrames = 0;
@@ -145,6 +148,11 @@ public class BeatController : MonoBehaviour
 		waitingOnLevelStart = false;
 		lastBeat = 0f;
 		beatNumber = 1;
+
+		if (nextLevelNumber > 2 && nextLevelNumber != levels.Length) {
+			checkpointCanvas.enabled = true;
+			StartCoroutine ("MakeCheckpointTextTransparent");
+		}
 	}
 
 	public void RestartLevel ()
@@ -213,5 +221,14 @@ public class BeatController : MonoBehaviour
 			yield return new WaitForSeconds (0.11111f);
 		}
 		shiftMessage.enabled = false;
+	}
+
+	private IEnumerator MakeCheckpointTextTransparent ()
+	{
+		for (var t = 1.5f; t >= 0f; t -= 0.1f) {
+			checkpointText.color = new Color (1f, 1f, 1f, t);
+			yield return new WaitForSeconds (0.11111f);
+		}
+		checkpointCanvas.enabled = false;
 	}
 }

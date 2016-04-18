@@ -1,9 +1,7 @@
 to do now:
-make all enemies break
-design levels
-design bosses
-fix player boundary, player attack length based on camera size
+final boss
 make spear triangular
+make miniboss player-targeted attacks glow or something
 
 
 
