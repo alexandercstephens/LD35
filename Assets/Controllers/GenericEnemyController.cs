@@ -21,6 +21,7 @@ public class GenericEnemyController : MonoBehaviour {
 	public bool FlyTowardsPlayer = false;
 	public bool SwayMovement = false;
 	public bool StrangeMovement = false;
+	public bool ShootWithBeat = false;
 	public float fireRate = .2f;
 	public float movementSpeed = 25.0f;
 
@@ -150,9 +151,10 @@ public class GenericEnemyController : MonoBehaviour {
 
 		}
 
+		bool beatShot = GameObject.Find ("BeatController").GetComponent<BeatController> ().IsOnBeat ();
 
 
-		if (CanShoot && withinShootingRange && Time.time > nextFireTime) {
+		if (CanShoot && withinShootingRange && ( Time.time > nextFireTime || ( ShootWithBeat && beatShot ) ) ) {
 			nextFireTime = Time.time + fireRate;
 			Vector3 bulletCenterPos = this.transform.position + bulletOffset;
 			switch (ShootStyle) {
