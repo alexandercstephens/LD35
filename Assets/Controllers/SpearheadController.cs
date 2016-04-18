@@ -4,10 +4,10 @@ using System.Collections;
 public class SpearheadController : MonoBehaviour
 {
 	private CameraController cameraController;
-    private PlayerController playerController;
+	private PlayerController playerController;
 	private BoxCollider boxCollider;
-    private MeshRenderer meshRenderer;
-    private MeshRenderer playerRenderer;
+	private MeshRenderer meshRenderer;
+	private MeshRenderer playerRenderer;
     
 	private LayerMask hittableThings;
 
@@ -19,7 +19,7 @@ public class SpearheadController : MonoBehaviour
 	// Use this for initialization
 	public void Spear ()
 	{
-		var distanceToScreenEnd = 7.5f - transform.position.z;
+		var distanceToScreenEnd = 13f - transform.position.z;
 
 		RaycastHit hit;
 		//TODO make max length based on the end of the screen
@@ -29,38 +29,36 @@ public class SpearheadController : MonoBehaviour
 			transform.localPosition = new Vector3 (0f, 0f, distanceToEnemy * 0.5f + 0.5f);
 			transform.localScale = new Vector3 (1f, 1f, distanceToEnemy);
 
-            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Enemies"))
-            {
-                Destroy(hit.collider.gameObject);
-                var fracturedObject = hit.collider.gameObject.GetComponent<FracturedObject>();
-                if (fracturedObject != null)
-                {
-                    fracturedObject.Explode(hit.point, 15f + Random.value * 30f);
-                    cameraController.addShake(0.44444444444f); //the length of one beat of the song
-                }
-            }
+			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Enemies")) {
+				Destroy (hit.collider.gameObject);
+				var fracturedObject = hit.collider.gameObject.GetComponent<FracturedObject> ();
+				if (fracturedObject != null) {
+					fracturedObject.Explode (hit.point, 15f + Random.value * 30f);
+					cameraController.addShake (0.44444444444f); //the length of one beat of the song
+				}
+			}
 
-            timeHit = Time.time;
+			timeHit = Time.time;
 		} else {
 			//TODO make max length based on the end of the screen
 			transform.localPosition = new Vector3 (0f, 0f, distanceToScreenEnd * 0.5f + 0.5f);
 			transform.localScale = new Vector3 (1f, 1f, distanceToScreenEnd);
 		}
 
-        meshRenderer.material.color = Color.black;
-        playerRenderer.material.color = Color.black;
-        StartCoroutine("ResetTexture");
-    }
+		meshRenderer.material.color = Color.black;
+		playerRenderer.material.color = Color.black;
+		StartCoroutine ("ResetTexture");
+	}
 
 	void Awake ()
 	{
 		cameraController = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
 		playerController = GameObject.Find ("Player").GetComponent<PlayerController> ();
 		boxCollider = GetComponent<BoxCollider> ();
-        meshRenderer = GetComponent<MeshRenderer>();
-        playerRenderer = transform.parent.GetComponent<MeshRenderer>();
+		meshRenderer = GetComponent<MeshRenderer> ();
+		playerRenderer = transform.parent.GetComponent<MeshRenderer> ();
 
-        hittableThings = LayerMask.GetMask ("Enemies", "Walls");
+		hittableThings = LayerMask.GetMask ("Enemies", "Walls");
 
 		originalPosition = transform.localPosition;
 		originalScale = transform.localScale;
@@ -74,13 +72,12 @@ public class SpearheadController : MonoBehaviour
 		}
 	}
 
-    private IEnumerator ResetTexture()
-    {
-        for (var f = 0f; f <= 1f; f += 0.1f)
-        {
-            meshRenderer.material.color = new Color(f, f, f);
-            playerRenderer.material.color = new Color(f, f, f);
-            yield return new WaitForSeconds(0.02f);
-        }        
-    }
+	private IEnumerator ResetTexture ()
+	{
+		for (var f = 0f; f <= 1f; f += 0.1f) {
+			meshRenderer.material.color = new Color (f, f, f);
+			playerRenderer.material.color = new Color (f, f, f);
+			yield return new WaitForSeconds (0.02f);
+		}        
+	}
 }

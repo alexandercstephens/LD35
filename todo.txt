@@ -2,6 +2,8 @@ to do now:
 make all enemies break
 design levels
 design bosses
+fix player boundary, player attack length based on camera size
+make spear triangular
 
 
 
@@ -19,6 +21,7 @@ make exploded chunks fade away
 change colors between levels
 make background less bright?
 change object colors/shaders
+make mini boss wall chunks break away
 
 
 

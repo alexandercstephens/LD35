@@ -31,6 +31,7 @@ public class PlayerHit : MonoBehaviour
 			}
 			screenFlash.enabled = true;
 			StartCoroutine ("Transparify");
+			transform.parent.localPosition = new Vector3 (0f, 0f, -3f);
 			//Destroy(collider.gameObject);
 			//Application.LoadLevel(Application.loadedLevel);
 		}
