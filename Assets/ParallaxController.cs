@@ -30,4 +30,18 @@ public class ParallaxController : MonoBehaviour {
             o1 = t;
         }
     }
+
+    public void ShiftHalf ()
+    {
+        o1.transform.localPosition -= new Vector3(0f, 0f, 1f) * size * 0.5f;
+        o2.transform.localPosition -= new Vector3(0f, 0f, 1f) * size * 0.5f;
+
+        if (o2.transform.localPosition.z < 0)
+        {
+            o1.transform.localPosition += new Vector3(0f, 0f, size * 2);
+            var t = o2;
+            o2 = o1;
+            o1 = t;
+        }
+    }
 }

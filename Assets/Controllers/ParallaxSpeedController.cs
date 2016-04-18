@@ -29,7 +29,7 @@ public class ParallaxSpeedController : MonoBehaviour {
 
 			startTime = Time.time;
 			startParallaxSpeed = scroller.GetComponent<ParallaxController> ().speed;
-			startSceneSpeed = movingScene.GetComponent<MovingSceneController> ().movementSpeed;
+			//startSceneSpeed = movingScene.GetComponent<MovingSceneController> ().movementSpeed;
 		}
 	}
 
@@ -50,7 +50,7 @@ public class ParallaxSpeedController : MonoBehaviour {
 
             bScroller.GetComponent<ParallaxController>().speed = GetNewSpeed(startParallaxSpeed, desiredParallaxSpeed);
 			scroller.GetComponent<ParallaxController> ().speed = GetNewSpeed (startParallaxSpeed, desiredParallaxSpeed);
-			movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (startSceneSpeed, desiredSceneSpeed);
+			//movingScene.GetComponent<MovingSceneController> ().movementSpeed = GetNewSpeed (startSceneSpeed, desiredSceneSpeed);
 
 		}
 
