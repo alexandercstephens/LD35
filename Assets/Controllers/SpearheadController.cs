@@ -58,7 +58,7 @@ public class SpearheadController : MonoBehaviour
 		meshRenderer = GetComponent<MeshRenderer> ();
 		playerRenderer = transform.parent.GetComponent<MeshRenderer> ();
 
-		hittableThings = LayerMask.GetMask ("Enemies", "Walls");
+		hittableThings = LayerMask.GetMask ("Enemies");
 
 		originalPosition = transform.localPosition;
 		originalScale = transform.localScale;
