@@ -2,7 +2,6 @@ to do now:
 make all enemies break
 design levels
 design bosses
-show flash to indicate player death
 
 
 
