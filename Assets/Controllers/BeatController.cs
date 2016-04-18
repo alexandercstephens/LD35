@@ -29,7 +29,7 @@ public class BeatController : MonoBehaviour
     private string state;
     private AudioSource newSource;
     private GameObject newScene;
-    private int nextLevelNumber = 0;
+    public int nextLevelNumber = 0;
     private bool waitingOnLevelStart = false;
 
     private bool canPlayerAttack = false;
