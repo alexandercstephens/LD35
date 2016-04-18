@@ -1,4 +1,5 @@
 to do during development:
+make all enemies break
 make player only attack on good beats
 make visible checkpoints
 make parallax reset on checkpoint

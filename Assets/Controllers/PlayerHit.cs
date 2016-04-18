@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerHit : MonoBehaviour {
 
     public Text Score;
+    public ParallaxController[] parallaxes;
 
     private BeatController beatController;
 
@@ -24,6 +25,10 @@ public class PlayerHit : MonoBehaviour {
         {
             //Debug.Log("You're dead");
             //beatController.RestartLevel();
+            foreach (var parallax in parallaxes)
+            {
+                parallax.ShiftHalf();
+            }
             //Destroy(collider.gameObject);
             //Application.LoadLevel(Application.loadedLevel);
         }

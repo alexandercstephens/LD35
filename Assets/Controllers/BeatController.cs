@@ -6,9 +6,6 @@ using System;
 public class BeatController : MonoBehaviour
 {
     public GameObject audioSources;
-    public AudioSource startMusic;
-    public AudioSource checkpoint1Music;
-    public AudioSource bossLoop;
     public AudioSource endMusic;
     public CameraController cameraController;
     public Canvas startScreen;
@@ -16,7 +13,7 @@ public class BeatController : MonoBehaviour
     public Canvas endScreen;
     public Text endText;
 
-    public GameObject level1;
+    public GameObject[] levels;
 
     private GameObject currentLevel;
 
@@ -32,6 +29,10 @@ public class BeatController : MonoBehaviour
     private string state;
     private AudioSource newSource;
     private GameObject newScene;
+    private int nextLevelNumber = 0;
+    private bool waitingOnLevelStart = false;
+
+    private bool canPlayerAttack = false;
 
 	public SpearheadController spear;
     
@@ -53,23 +54,23 @@ public class BeatController : MonoBehaviour
                 if (Math.Abs(Input.GetAxis("Horizontal")) > 0.01f || Math.Abs(Input.GetAxis("Vertical")) > 0.01f)
                 {
                     state = null;
-                    startMusic.Play();
-                    currentSource = startMusic;
                     Invoke("TurnUp", 0.5f);
-                    StartLevel(level1);
+                    StartLevel(levels[nextLevelNumber]);
                 }
                 break;
         }
-        if (Input.GetKeyDown(KeyCode.L) && bossLoop.loop)
+        if (Input.GetKeyDown(KeyCode.L))
         {
-            //TODO keep player from dying at this point
-            bossLoop.loop = false;
-            endMusic.PlayScheduled(AudioSettings.dspTime + bossLoop.clip.length - bossLoop.time);
-            Invoke("EndMusic", bossLoop.clip.length - bossLoop.time);
+            currentSource.loop = false;
         }
 
         if (currentSource != null)
         {
+            if (!currentSource.loop && nextLevelNumber < levels.Length && currentSource.clip.length - currentSource.time < 0.5f)
+            {
+                StartLevel(levels[nextLevelNumber]);
+            }
+
             if (currentSource.time < lastTime)
             {
                 totalTime += clipLength - lastTime + currentSource.time;
@@ -89,20 +90,43 @@ public class BeatController : MonoBehaviour
                 beatNumber += 1;
                 if (beatNumber == 5)
                 {
-                    spear.Spear();
+                    if (canPlayerAttack) spear.Spear();
                     beatNumber = 1;
                 }
             }
         }        
 	}
 
+    public void SetCanAttack(bool b)
+    {
+        canPlayerAttack = b;
+    }
+
     public void StartLevel(GameObject nextScene)
     {
-        newScene = nextScene;
-        newSource = audioSources.transform.Find(nextScene.GetComponent<MovingSceneController>().audioSource).GetComponent<AudioSource>();
-        newSource.PlayScheduled(AudioSettings.dspTime + currentSource.clip.length - currentSource.time);
-        
-        Invoke("SetSource", currentSource.clip.length - currentSource.time);        
+        if (!waitingOnLevelStart)
+        {
+            waitingOnLevelStart = true;
+            nextLevelNumber += 1;
+
+            newScene = nextScene;
+            newSource = audioSources.transform.Find(nextScene.GetComponent<MovingSceneController>().audioSource).GetComponent<AudioSource>();
+
+            if (currentSource != null)
+            {
+                newSource.PlayScheduled(AudioSettings.dspTime + currentSource.clip.length - currentSource.time);
+                Invoke("SetSource", currentSource.clip.length - currentSource.time);
+                if (nextLevelNumber == levels.Length)
+                {
+                    InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time, 0.4444444444f);
+                }
+            }
+            else
+            {
+                newSource.Play();
+                SetSource();
+            }
+        }                   
     }
     private void SetSource()
     {
@@ -111,6 +135,7 @@ public class BeatController : MonoBehaviour
         currentLevel = Instantiate(newScene);
         checkpointTotalTime = totalTime;
         checkpointLastBeat = lastBeat;
+        waitingOnLevelStart = false;
     }
 
     public void RestartLevel()
@@ -121,12 +146,6 @@ public class BeatController : MonoBehaviour
         lastTime = 0f;
         totalTime = checkpointTotalTime;
         lastBeat = checkpointLastBeat;
-    }
-
-    private void EndMusic()
-    {
-        currentSource = endMusic;
-        InvokeRepeating("EndShake", 0f, 0.4444444444f);
     }
 
     private int numShakes = 48;

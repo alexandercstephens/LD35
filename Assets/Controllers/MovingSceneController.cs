@@ -1,27 +1,44 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MovingSceneController : MonoBehaviour {
     public float movementSpeed = 1f;
-	public float startOffset = 0.0f;
+    public float parallaxSpeed = 10f;
+    public float parallaxSpeedUpTime = 1f;
     public string audioSource;
-    private GameObject Spawner;
+    public bool canPlayerAttack = true;
+    public bool canPlayerShift = true;
 
-    void Awake()
+    private BeatController beatController;
+    private PlayerController playerController;
+    private ParallaxController scroller;
+    private ParallaxController bScroller;
+    private float startParallaxSpeed;
+    private float startTime;
+    
+    float GetNewSpeed(float spd, float dspd)
     {
-        Spawner = GameObject.FindGameObjectWithTag("Spawner");
-       
+        float timeElapsed = (Time.time - startTime) / parallaxSpeedUpTime;
+        return Mathf.Lerp(spd, dspd, timeElapsed);
     }
 
-	void Start() {
-        
-        this.transform.position = new Vector3(0,0, Spawner.transform.position.z*-1);
-        //this.transform.Translate (0.0f, 0.0f, this.transform.position.z);
-        //Instantiate(MovingScene, new Vector3(0, 0, -Spawner.transform.position.z), Quaternion.identity);
-	}
+    void Start() {
+        beatController = GameObject.Find("BeatController").GetComponent<BeatController>();
+        beatController.SetCanAttack(canPlayerAttack);
+
+        playerController = GameObject.Find("Player").GetComponent<PlayerController>();
+        playerController.SetCanShift(canPlayerShift);
+
+        scroller = GameObject.Find("RainbowSideScroller").GetComponent<ParallaxController>();
+        bScroller = GameObject.Find("RainbowBottomScroller").GetComponent<ParallaxController>();
+        startParallaxSpeed = scroller.GetComponent<ParallaxController>().speed;
+        startTime = Time.time;        
+    }
 
 	// Update is called once per frame
 	void Update () {
         this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
-	}
+
+        scroller.speed = GetNewSpeed(startParallaxSpeed, parallaxSpeed);
+        bScroller.speed = GetNewSpeed(startParallaxSpeed, parallaxSpeed);
+    }
 }
