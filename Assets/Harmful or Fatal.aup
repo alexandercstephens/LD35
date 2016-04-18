@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="Harmful or Fatal_data" version="1.3.0" audacityversion="2.1.1" sel0="298.6896102581" sel1="330.7102040816" vpos="0" h="274.7269120000" zoom="22.8881835938" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Harmful or Fatal_data" version="1.3.0" audacityversion="2.1.1" sel0="163.5550000000" sel1="204.4469501134" vpos="0" h="121.1979093333" zoom="11.4440917969" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
 	<tags>
 		<tag name="Encoded by" value="iTunes v7.0.2.16"/>
 		<tag name="ALBUM" value="Hard Electronic"/>
@@ -12,7 +12,7 @@
 		<tag name="Composer" value="Kevin MacLeod"/>
 		<tag name="GENRE" value="Techno"/>
 	</tags>
-	<wavetrack name="Harmful or Fatal" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+	<wavetrack name="Harmful or Fatal" channel="0" linked="1" mute="1" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
 			<sequence maxsamples="262144" sampleformat="262159" numsamples="14584320">
 				<waveblock start="0">
@@ -187,7 +187,7 @@
 			<envelope numpoints="0"/>
 		</waveclip>
 	</wavetrack>
-	<wavetrack name="Harmful or Fatal" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+	<wavetrack name="Harmful or Fatal" channel="1" linked="0" mute="1" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
 		<waveclip offset="0.00000000">
 			<sequence maxsamples="262144" sampleformat="262159" numsamples="14584320">
 				<waveblock start="0">
@@ -362,7 +362,7 @@
 			<envelope numpoints="0"/>
 		</waveclip>
 	</wavetrack>
-	<labeltrack name="Label Track" numlabels="13" height="73" minimized="0" isSelected="0">
+	<labeltrack name="Label Track" numlabels="12" height="73" minimized="0" isSelected="0">
 		<label t="0.0000000000" t1="7.1110000000" title="start"/>
 		<label t="7.1110000000" t1="28.4440000000" title="level 1"/>
 		<label t="20.3730046546" t1="23.9289581493" title="loop 1"/>
@@ -371,10 +371,89 @@
 		<label t="56.8880000000" t1="85.3330000000" title="level 3"/>
 		<label t="85.3330000000" t1="163.5550000000" title="level 4"/>
 		<label t="163.5550000000" t1="197.3330000000" title="level 5"/>
-		<label t="172.8883640939" t1="188.5198828519" title="level 5"/>
 		<label t="197.3330000000" t1="254.2220000000" title="level 6"/>
 		<label t="254.2220000000" t1="291.5790826711" title="level 7"/>
 		<label t="291.5790826501" t1="298.6896102581" title="final boss loop"/>
 		<label t="298.6896102581" t1="340.5687466667" title="end"/>
 	</labeltrack>
+	<wavetrack name="Harmful or Fatal" channel="0" linked="1" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="163.55500000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1803335">
+				<waveblock start="0">
+					<simpleblockfile filename="e00000dc.au" len="49524" min="-0.927301" max="0.951153" rms="0.1761"/>
+				</waveblock>
+				<waveblock start="49524">
+					<simpleblockfile filename="e000074c.au" len="215429" min="-1.02588" max="0.878606" rms="0.195255"/>
+				</waveblock>
+				<waveblock start="264953">
+					<simpleblockfile filename="e00008fe.au" len="232281" min="-0.943856" max="0.879375" rms="0.122454"/>
+				</waveblock>
+				<waveblock start="497234">
+					<simpleblockfile filename="e000068a.au" len="148658" min="-0.579056" max="0.579192" rms="0.085807"/>
+				</waveblock>
+				<waveblock start="645892">
+					<simpleblockfile filename="e00006a1.au" len="148658" min="-0.887227" max="0.900294" rms="0.183124"/>
+				</waveblock>
+				<waveblock start="794550">
+					<simpleblockfile filename="e00001fc.au" len="186189" min="-1.005077" max="1.061842" rms="0.220867"/>
+				</waveblock>
+				<waveblock start="980739">
+					<simpleblockfile filename="e0000230.au" len="148617" min="-1.036656" max="1.019373" rms="0.205931"/>
+				</waveblock>
+				<waveblock start="1129356">
+					<simpleblockfile filename="e0000888.au" len="132807" min="-0.996359" max="1.066879" rms="0.192257"/>
+				</waveblock>
+				<waveblock start="1262163">
+					<simpleblockfile filename="e0000f86.au" len="132807" min="-0.971805" max="1.028291" rms="0.189729"/>
+				</waveblock>
+				<waveblock start="1394970">
+					<simpleblockfile filename="e0000976.au" len="207223" min="-1.039966" max="1.067578" rms="0.190289"/>
+				</waveblock>
+				<waveblock start="1602193">
+					<simpleblockfile filename="e0000b60.au" len="201142" min="-0.214471" max="0.19836" rms="0.037325"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="Harmful or Fatal" channel="1" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="163.55500000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="1803335">
+				<waveblock start="0">
+					<simpleblockfile filename="e0000f2f.au" len="49524" min="-0.967094" max="0.92756" rms="0.174463"/>
+				</waveblock>
+				<waveblock start="49524">
+					<simpleblockfile filename="e00008d4.au" len="215429" min="-1.025385" max="0.978576" rms="0.201683"/>
+				</waveblock>
+				<waveblock start="264953">
+					<simpleblockfile filename="e0000570.au" len="232281" min="-0.977057" max="0.829052" rms="0.118828"/>
+				</waveblock>
+				<waveblock start="497234">
+					<simpleblockfile filename="e0000f3e.au" len="148658" min="-0.55816" max="0.595548" rms="0.077846"/>
+				</waveblock>
+				<waveblock start="645892">
+					<simpleblockfile filename="e0000af6.au" len="148658" min="-0.900417" max="0.880421" rms="0.177917"/>
+				</waveblock>
+				<waveblock start="794550">
+					<simpleblockfile filename="e00000eb.au" len="186189" min="-0.947197" max="1.049679" rms="0.216491"/>
+				</waveblock>
+				<waveblock start="980739">
+					<simpleblockfile filename="e000000b.au" len="148617" min="-0.974251" max="1.027204" rms="0.201741"/>
+				</waveblock>
+				<waveblock start="1129356">
+					<simpleblockfile filename="e0000611.au" len="132807" min="-1.008836" max="1.054503" rms="0.18838"/>
+				</waveblock>
+				<waveblock start="1262163">
+					<simpleblockfile filename="e0000378.au" len="132807" min="-0.952529" max="1.031728" rms="0.186285"/>
+				</waveblock>
+				<waveblock start="1394970">
+					<simpleblockfile filename="e0000239.au" len="207223" min="-0.991158" max="1.054867" rms="0.186355"/>
+				</waveblock>
+				<waveblock start="1602193">
+					<simpleblockfile filename="e00008c3.au" len="201142" min="-0.209804" max="0.233557" rms="0.03826"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
 </project>
