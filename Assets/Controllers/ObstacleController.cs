@@ -4,7 +4,7 @@ using System.Collections;
 public class ObstacleController : MonoBehaviour {
 
 	public bool Active = true;
-
+	public bool BackAndForth = false;
 	private bool getStartPos = false;
 
 	public Vector3 DestinationOffset = new Vector3 (0, 0, 0);
@@ -40,6 +40,11 @@ public class ObstacleController : MonoBehaviour {
 				Vector3 newPos = StartPos + DestinationOffset;
 				newPos.z += (GameObject.Find ("MovingScene").transform.position.z - StartSceneZ);
 				this.transform.position = Vector3.Lerp (StartPos, newPos, (Time.time - StartTime) / time);
+
+				if (BackAndForth) {
+					getStartPos = false;
+
+				}
 
 			}
 
