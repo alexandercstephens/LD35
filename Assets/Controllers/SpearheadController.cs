@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SpearheadController : MonoBehaviour
 {
+	public AudioSource hitSound;
+
 	private CameraController cameraController;
 	private PlayerController playerController;
 	private BoxCollider boxCollider;
@@ -30,6 +32,7 @@ public class SpearheadController : MonoBehaviour
 			transform.localScale = new Vector3 (1f, 1f, distanceToEnemy);
 
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Enemies")) {
+				//hitSound.Play ();
 				Destroy (hit.collider.gameObject);
 				var fracturedObject = hit.collider.gameObject.GetComponent<FracturedObject> ();
 				if (fracturedObject != null) {
