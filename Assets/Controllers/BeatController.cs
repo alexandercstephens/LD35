@@ -5,239 +5,211 @@ using System;
 
 public class BeatController : MonoBehaviour
 {
-    public GameObject audioSources;
-    public AudioSource endMusic;
-    public CameraController cameraController;
-    public Canvas startScreen;
-    public Text startText;
-    public Canvas endScreen;
-    public Text endText;
+	public GameObject audioSources;
+	public AudioSource endMusic;
+	public CameraController cameraController;
+	public Canvas startScreen;
+	public Text startText;
+	public Canvas endScreen;
+	public Text endText;
 
-    public GameObject[] levels;
+	public GameObject[] levels;
 
-    private GameObject currentLevel;
+	private GameObject currentLevel;
 
-    private AudioSource currentSource;
-    private float lastTime;
-	private float totalTime;
-    private float lastBeat;
-    private float checkpointTotalTime;
-    private float checkpointLastBeat;
-    private float clipLength;
+	private AudioSource currentSource;
+	private float lastBeat;
+	private float clipLength;
 	private int beatNumber = 1;
 
-    private string state;
-    private AudioSource newSource;
-    private GameObject newScene;
-    public int nextLevelNumber = 0;
-    private bool waitingOnLevelStart = false;
+	private string state;
+	private AudioSource newSource;
+	private GameObject newScene;
+	public int nextLevelNumber = 0;
+	private bool waitingOnLevelStart = false;
 
-    private bool canPlayerAttack = false;
-    private bool hasShownPlayerAttackMessage = false;
-    public Canvas attackMessage;
-    public Text attackText;
+	private bool canPlayerAttack = false;
+	private bool hasShownPlayerAttackMessage = false;
+	public Canvas attackMessage;
+	public Text attackText;
 
-    public Canvas shiftMessage;
-    public Text shiftText;
+	public Canvas shiftMessage;
+	public Text shiftText;
 
-    public SpearheadController spear;
+	public SpearheadController spear;
 
-    private int beatFrames = 0;
-    
+	private int beatFrames = 0;
+
 	void Start ()
 	{
-        lastTime = 0f;
-        totalTime = 0f;
-        lastBeat = 0f;
-        currentSource = null;
-        state = "start";
-    }    
+		lastBeat = 0f;
+		currentSource = null;
+		state = "start";
+	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-        if (beatFrames != 0)
-        {
-            beatFrames -= 1;
-        }
-        switch(state)
-        {
-            case "start":
-                if (Math.Abs(Input.GetAxis("Horizontal")) > 0.01f || Math.Abs(Input.GetAxis("Vertical")) > 0.01f)
-                {
-                    state = null;
-                    Invoke("TurnUp", 0.5f);
-                    StartLevel(levels[nextLevelNumber]);
-                }
-                break;
-        }
-        if (Input.GetKeyDown(KeyCode.L))//TODO call this chunk of code when the boss is defeated
-        {
-            currentSource.loop = false;
-            if (nextLevelNumber >= levels.Length - 1)
-            {
-                var numBeatsLeft = 0;
-                var timeLeft = currentSource.clip.length - currentSource.time;
-                while (timeLeft > 0) {
-                    timeLeft -= 0.44444444444f;
-                    if (timeLeft > 0) numBeatsLeft += 1;
-                }
-                InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
-                Invoke("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
-            }
-        }
+		if (beatFrames != 0) {
+			beatFrames -= 1;
+		}
+		switch (state) {
+		case "start":
+			if (Math.Abs (Input.GetAxis ("Horizontal")) > 0.01f || Math.Abs (Input.GetAxis ("Vertical")) > 0.01f) {
+				state = null;
+				Invoke ("TurnUp", 0.5f);
+				StartLevel (levels [nextLevelNumber]);
+			}
+			break;
+		}
+		if (Input.GetKeyDown (KeyCode.L)) {//TODO call this chunk of code when the boss is defeated
+			currentSource.loop = false;
+			if (nextLevelNumber >= levels.Length - 1) {
+				var numBeatsLeft = 0;
+				var timeLeft = currentSource.clip.length - currentSource.time;
+				while (timeLeft > 0) {
+					timeLeft -= 0.44444444444f;
+					if (timeLeft > 0)
+						numBeatsLeft += 1;
+				}
+				InvokeRepeating ("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
+				Invoke ("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
+			}
+		}
 
-        if (currentSource != null)
-        {
-            if (!currentSource.loop && nextLevelNumber < levels.Length && currentSource.clip.length - currentSource.time < 0.5f)
-            {
-                StartLevel(levels[nextLevelNumber]);
-            }
+		if (currentSource != null) {
+			if (!currentSource.loop && nextLevelNumber < levels.Length && currentSource.clip.length - currentSource.time < 0.5f) {
+				StartLevel (levels [nextLevelNumber]);
+			}
 
-            if (currentSource.time < lastTime)
-            {
-                totalTime += clipLength - lastTime + currentSource.time;
-            }
-            else
-            {
-                totalTime += currentSource.time - lastTime;
-            }
-            lastTime = currentSource.time;
-            clipLength = currentSource.clip.length;
-
-            //TODO write this in a way that it won't get off sync,
-            //should suffice for one level though
-            if (totalTime - lastBeat > 0.44444444444f)
-            {
-                lastBeat = lastBeat + 0.44444444444f;
-                beatNumber += 1;
-                if (beatNumber == 5)
-                {
-                    if (canPlayerAttack) spear.Spear();
-                    beatNumber = 1;
-                    beatFrames = 1; //change to 2 if necessary
-                }
-            }
-        }        
+			//TODO write this in a way that it won't get off sync,
+			//should suffice for one level though
+			if (currentSource.time - lastBeat > 0.44444444444f) {
+				lastBeat = lastBeat + 0.44444444444f;
+				beatNumber += 1;
+				if (beatNumber == 5) {
+					if (canPlayerAttack)
+						spear.Spear ();
+					beatNumber = 1;
+					beatFrames = 1; //change to 2 if necessary
+				}
+			}
+		}        
 	}
-    public bool IsOnBeat()
-    {
-        return beatFrames != 0;
-    }
 
-    public void SetCanAttack(bool b)
-    {
-        canPlayerAttack = b;
-        if (b && !hasShownPlayerAttackMessage)
-        {
-            attackMessage.enabled = true;
-            hasShownPlayerAttackMessage = true;
-            StartCoroutine("MakeAttackTextTransparent");
-        }
-    }
+	public bool IsOnBeat ()
+	{
+		return beatFrames != 0;
+	}
 
-    public void ShowShiftMessage()
-    {
-        shiftMessage.enabled = true;
-        StartCoroutine("MakeShiftTextTransparent");
-    }
+	public void SetCanAttack (bool b)
+	{
+		canPlayerAttack = b;
+		if (b && !hasShownPlayerAttackMessage) {
+			attackMessage.enabled = true;
+			hasShownPlayerAttackMessage = true;
+			StartCoroutine ("MakeAttackTextTransparent");
+		}
+	}
 
-    public void StartLevel(GameObject nextScene)
-    {
-        if (!waitingOnLevelStart)
-        {
-            waitingOnLevelStart = true;
-            nextLevelNumber += 1;
+	public void ShowShiftMessage ()
+	{
+		shiftMessage.enabled = true;
+		StartCoroutine ("MakeShiftTextTransparent");
+	}
 
-            newScene = nextScene;
-            newSource = audioSources.transform.Find(nextScene.GetComponent<MovingSceneController>().audioSource).GetComponent<AudioSource>();
+	public void StartLevel (GameObject nextScene)
+	{
+		if (!waitingOnLevelStart) {
+			waitingOnLevelStart = true;
+			nextLevelNumber += 1;
 
-            if (currentSource != null)
-            {
-                newSource.PlayScheduled(AudioSettings.dspTime + currentSource.clip.length - currentSource.time);
-                Invoke("SetSource", currentSource.clip.length - currentSource.time);
-            }
-            else
-            {
-                newSource.Play();
-                SetSource();
-            }
-        }                   
-    }
-    private void SetSource()
-    {
-        currentSource = newSource;
-        Destroy(currentLevel);
-        currentLevel = Instantiate(newScene);
-        checkpointTotalTime = totalTime;
-        checkpointLastBeat = lastBeat;
-        waitingOnLevelStart = false;
-    }
+			newScene = nextScene;
+			newSource = audioSources.transform.Find (nextScene.GetComponent<MovingSceneController> ().audioSource).GetComponent<AudioSource> ();
 
-    public void RestartLevel()
-    {
-        Destroy(currentLevel);
-        currentLevel = Instantiate(newScene);
-        currentSource.time = 0f;
-        lastTime = 0f;
-        totalTime = checkpointTotalTime;
-        lastBeat = checkpointLastBeat;
-    }
+			if (currentSource != null) {
+				newSource.PlayScheduled (AudioSettings.dspTime + currentSource.clip.length - currentSource.time);
+				Invoke ("SetSource", currentSource.clip.length - currentSource.time);
+			} else {
+				newSource.Play ();
+				SetSource ();
+			}
+		}                   
+	}
 
-    private int numShakes = 48;
-    private void EndShake()
-    {
-        if (numShakes > 32)
-            cameraController.addShake(1f);
-        else if (numShakes > 16)
-            cameraController.addShake(2f);
-        else
-            cameraController.addShake(4f);
-        numShakes -= 1;
-    }
-    private void EndGame()
-    {
-        CancelInvoke();
-        cameraController.killShake();
-        endScreen.enabled = true;
-        Invoke("ShowEndText", 0.8888888888889f);
-    }
-    private void ShowEndText()
-    {
-        endText.enabled = true;
-    }
+	private void SetSource ()
+	{
+		currentSource = newSource;
+		Destroy (currentLevel);
+		currentLevel = Instantiate (newScene);
+		waitingOnLevelStart = false;
+		lastBeat = 0f;
+	}
 
-    private void TurnUp()
-    {
-        startText.text = "turn up your volume";
-        StartCoroutine("MakeTextTransparent");
-    }
+	public void RestartLevel ()
+	{
+		Destroy (currentLevel);
+		currentLevel = Instantiate (newScene);
+		currentSource.time = 0f;
+		lastBeat = 0f;
+	}
 
-    private IEnumerator MakeTextTransparent()
-    {
-        for (var t = 2.5f; t >= 0f; t -= 0.1f)
-        {
-            startText.color = new Color(1f, 1f, 1f, t);
-            yield return new WaitForSeconds(0.11111f);
-        }
-        startScreen.enabled = false;
-    }
-    private IEnumerator MakeAttackTextTransparent()
-    {
-        for (var t = 2.5f; t >= 0f; t -= 0.1f)
-        {
-            attackText.color = new Color(1f, 1f, 1f, t);
-            yield return new WaitForSeconds(0.11111f);
-        }
-        attackMessage.enabled = false;
-    }
-    private IEnumerator MakeShiftTextTransparent()
-    {
-        for (var t = 2.5f; t >= 0f; t -= 0.1f)
-        {
-            shiftText.color = new Color(1f, 1f, 1f, t);
-            yield return new WaitForSeconds(0.11111f);
-        }
-        shiftMessage.enabled = false;
-    }
+	private int numShakes = 48;
+
+	private void EndShake ()
+	{
+		if (numShakes > 32)
+			cameraController.addShake (1f);
+		else if (numShakes > 16)
+			cameraController.addShake (2f);
+		else
+			cameraController.addShake (4f);
+		numShakes -= 1;
+	}
+
+	private void EndGame ()
+	{
+		CancelInvoke ();
+		cameraController.killShake ();
+		endScreen.enabled = true;
+		Invoke ("ShowEndText", 0.8888888888889f);
+	}
+
+	private void ShowEndText ()
+	{
+		endText.enabled = true;
+	}
+
+	private void TurnUp ()
+	{
+		startText.text = "turn up your volume";
+		StartCoroutine ("MakeTextTransparent");
+	}
+
+	private IEnumerator MakeTextTransparent ()
+	{
+		for (var t = 2.5f; t >= 0f; t -= 0.1f) {
+			startText.color = new Color (1f, 1f, 1f, t);
+			yield return new WaitForSeconds (0.11111f);
+		}
+		startScreen.enabled = false;
+	}
+
+	private IEnumerator MakeAttackTextTransparent ()
+	{
+		for (var t = 2.5f; t >= 0f; t -= 0.1f) {
+			attackText.color = new Color (1f, 1f, 1f, t);
+			yield return new WaitForSeconds (0.11111f);
+		}
+		attackMessage.enabled = false;
+	}
+
+	private IEnumerator MakeShiftTextTransparent ()
+	{
+		for (var t = 2.5f; t >= 0f; t -= 0.1f) {
+			shiftText.color = new Color (1f, 1f, 1f, t);
+			yield return new WaitForSeconds (0.11111f);
+		}
+		shiftMessage.enabled = false;
+	}
 }
