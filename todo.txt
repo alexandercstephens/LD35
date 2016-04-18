@@ -1,25 +1,30 @@
-to do during development:
+to do now:
 make all enemies break
-make player only attack on good beats
-make visible checkpoints
-make parallax reset on checkpoint
 design levels
-find sound effects
-make exploded chunks fade away
-change controls to better buttons
 design bosses
-loop music during level sections and bosses so the music plays at the exact right time and ends at the credits
-make some enemies die by multiple attacks
-change colors between levels
-change engine color gradients on forward/backward/stationary movement
-change alpha value of visualizer based on intensity of level/music
-use player disintegration on hit
-make shader outline for player
-make custom outlined shader for engine particles
-tutorial messages for controls
-only allow controls at certain points in the game
-ending screen possibly looping back to the title screen
+show flash to indicate player death
 
-to do before publish:
+
+
+must do before publish:
 remove all debug controls
 think of a name
+
+
+
+unnecessary, but might do:
+reload button at the end
+make visible checkpoints
+find sound effects
+make exploded chunks fade away
+change colors between levels
+
+
+
+won't do until post-jam:
+make shader outline for player
+make custom outlined shader for engine particles
+ending screen possibly looping back to the title screen
+make some enemies die by multiple attacks
+change engine color gradients on forward/backward/stationary movement
+change alpha value of visualizer based on intensity of level/music
