@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no" ?>
 <!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
-<project xmlns="http://audacity.sourceforge.net/xml/" projname="Harmful or Fatal_data" version="1.3.0" audacityversion="2.1.2" sel0="255.0244619037" sel1="291.5790826501" vpos="0" h="0.0000000000" zoom="5.3097847551" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="Harmful or Fatal_data" version="1.3.0" audacityversion="2.1.1" sel0="298.6896102581" sel1="330.7102040816" vpos="0" h="274.7269120000" zoom="22.8881835938" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
 	<tags>
 		<tag name="Encoded by" value="iTunes v7.0.2.16"/>
 		<tag name="ALBUM" value="Hard Electronic"/>
@@ -362,17 +362,19 @@
 			<envelope numpoints="0"/>
 		</waveclip>
 	</wavetrack>
-	<labeltrack name="Label Track" numlabels="11" height="73" minimized="0" isSelected="0">
-		<label t="0.0000000000" t1="7.1179762680" title="start"/>
-		<label t="7.1179762680" t1="28.0614011436" title="level 1"/>
+	<labeltrack name="Label Track" numlabels="13" height="73" minimized="0" isSelected="0">
+		<label t="0.0000000000" t1="7.1110000000" title="start"/>
+		<label t="7.1110000000" t1="28.4440000000" title="level 1"/>
 		<label t="20.3730046546" t1="23.9289581493" title="loop 1"/>
-		<label t="28.0614011436" t1="56.0217396042" title="level 2"/>
+		<label t="28.4440000000" t1="56.8880000000" title="level 2"/>
 		<label t="48.9081773569" t1="56.0217396042" title="loop 2"/>
-		<label t="56.0217396042" t1="84.4675283868" title="level 3"/>
-		<label t="84.4675283868" t1="163.9426154064" title="level 4"/>
-		<label t="163.9426154064" t1="197.5656826743" title="level 5"/>
-		<label t="197.5656826743" t1="255.0244619037" title="level 6"/>
-		<label t="255.0244619037" t1="291.5790826501" title="level 7"/>
+		<label t="56.8880000000" t1="85.3330000000" title="level 3"/>
+		<label t="85.3330000000" t1="163.5550000000" title="level 4"/>
+		<label t="163.5550000000" t1="197.3330000000" title="level 5"/>
+		<label t="172.8883640939" t1="188.5198828519" title="level 5"/>
+		<label t="197.3330000000" t1="254.2220000000" title="level 6"/>
+		<label t="254.2220000000" t1="291.5790826711" title="level 7"/>
 		<label t="291.5790826501" t1="298.6896102581" title="final boss loop"/>
+		<label t="298.6896102581" t1="340.5687466667" title="end"/>
 	</labeltrack>
 </project>
