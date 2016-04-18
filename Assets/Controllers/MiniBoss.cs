@@ -34,29 +34,29 @@ public class MiniBoss : MonoBehaviour
 				switch (beatCount) {
 				case 1:
 				case 2:
+				case 3:
 				case 4:
 				case 5:
-				case 8:
-				case 9:
+				case 6:
+				case 7:
+				case 12:
+				case 14:
 					StartCoroutine ("Attack1");
 					break;
-				case 3:
-				case 6:
-				case 10:
-				case 12:
-				case 13:
-				case 14:
+				case 16:
+				case 17:
 				case 18:
 				case 19:
 					StartCoroutine ("Attack2");
 					break;
-				case 7:
+				case 8:
+				case 10:
 				case 15:
-				case 17:
 					StartCoroutine ("Attack3");
 					break;
+				case 9:
 				case 11:
-				case 16:
+				case 13:
 					StartCoroutine ("Attack4");
 					break;
 				}
@@ -94,7 +94,7 @@ public class MiniBoss : MonoBehaviour
 				shotComponent.MoveTo (new Vector3 (-10f, -10f, 10f), 0.444444444f);
 
 			if (i == randomAtPlayer)
-				shotComponent.atPlayer = true;
+				shotComponent.FireAtPlayer ();
 			
 			shotComponent.Fire ((4 - i) * 0.44444444f);
 			yield return new WaitForSeconds (0.444444444f);
@@ -104,7 +104,7 @@ public class MiniBoss : MonoBehaviour
 	IEnumerator Attack2 ()
 	{
 		var randomAtPlayer = beatCount % 9;
-		var randomAtPlayer2 = (beatCount * 2) % 9;
+		//var randomAtPlayer2 = (beatCount * 2) % 9;
 		for (var i = 0; i < 9; i++) {
 			var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
 			shot.transform.parent = transform.parent;
@@ -128,8 +128,8 @@ public class MiniBoss : MonoBehaviour
 			else if (i == 7)
 				shotComponent.MoveTo (new Vector3 (-10f, 10f, 11f), 0.222222222222f);
 
-			if (i == randomAtPlayer || i == randomAtPlayer2)
-				shotComponent.atPlayer = true;
+			if (i == randomAtPlayer)// || i == randomAtPlayer2)
+				shotComponent.FireAtPlayer ();
 
 			shotComponent.Fire ((8 - i) * 0.222222222f);
 			yield return new WaitForSeconds (0.2222222222f);

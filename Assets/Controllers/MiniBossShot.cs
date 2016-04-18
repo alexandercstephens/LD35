@@ -3,10 +3,11 @@ using System.Collections;
 
 public class MiniBossShot : MonoBehaviour
 {
-	public bool atPlayer = false;
-
+	private bool atPlayer = false;
 	private Vector3 goalPosition;
 	private Vector3 velocity = Vector3.zero;
+
+	public Material atPlayerMaterial;
 
 	public void MoveTo (Vector3 pos, float time)
 	{
@@ -26,6 +27,12 @@ public class MiniBossShot : MonoBehaviour
 			ActuallyFire ();
 		else
 			Invoke ("ActuallyFire", waitTime);
+	}
+
+	public void FireAtPlayer ()
+	{
+		atPlayer = true;
+		GetComponent<MeshRenderer> ().material = atPlayerMaterial;
 	}
 
 	private void ActuallyFire ()
