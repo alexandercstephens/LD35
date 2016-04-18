@@ -78,6 +78,8 @@ public class MiniBoss : MonoBehaviour
 	IEnumerator Attack1 ()
 	{
 		var randomAtPlayer = beatCount % 5;
+		if (randomAtPlayer == 4)
+			randomAtPlayer = beatCount % 4;
 		for (var i = 0; i < 5; i++) {
 			var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
 			shot.transform.parent = transform.parent;
@@ -104,6 +106,8 @@ public class MiniBoss : MonoBehaviour
 	IEnumerator Attack2 ()
 	{
 		var randomAtPlayer = beatCount % 9;
+		if (randomAtPlayer == 8)
+			randomAtPlayer = beatCount % 8;
 		//var randomAtPlayer2 = (beatCount * 2) % 9;
 		for (var i = 0; i < 9; i++) {
 			var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
