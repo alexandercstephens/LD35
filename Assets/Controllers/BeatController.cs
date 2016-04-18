@@ -41,6 +41,8 @@ public class BeatController : MonoBehaviour
     public Text shiftText;
 
     public SpearheadController spear;
+
+    private int beatFrames = 0;
     
 	void Start ()
 	{
@@ -54,6 +56,10 @@ public class BeatController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        if (beatFrames != 0)
+        {
+            beatFrames -= 1;
+        }
         switch(state)
         {
             case "start":
@@ -109,10 +115,15 @@ public class BeatController : MonoBehaviour
                 {
                     if (canPlayerAttack) spear.Spear();
                     beatNumber = 1;
+                    beatFrames = 1; //change to 2 if necessary
                 }
             }
         }        
 	}
+    public bool IsOnBeat()
+    {
+        return beatFrames != 0;
+    }
 
     public void SetCanAttack(bool b)
     {
