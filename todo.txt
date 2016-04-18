@@ -1,8 +1,6 @@
 to do now:
 final boss
 make spear triangular
-make miniboss player-targeted attacks glow or something
-make mini boss easier
 
 
 
@@ -16,7 +14,6 @@ unnecessary, but might do:
 reload button at the end
 find sound effects
 change colors between levels
-make background less bright?
 
 
 
