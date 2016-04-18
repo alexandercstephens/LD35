@@ -144,6 +144,7 @@ public class BeatController : MonoBehaviour
 		currentLevel = Instantiate (newScene);
 		waitingOnLevelStart = false;
 		lastBeat = 0f;
+		beatNumber = 1;
 	}
 
 	public void RestartLevel ()
@@ -152,6 +153,7 @@ public class BeatController : MonoBehaviour
 		currentLevel = Instantiate (newScene);
 		currentSource.time = 0f;
 		lastBeat = 0f;
+		beatNumber = 1;
 	}
 
 	private int numShakes = 48;
