@@ -18,6 +18,7 @@ find sound effects
 make exploded chunks fade away
 change colors between levels
 make background less bright?
+change object colors/shaders
 
 
 
