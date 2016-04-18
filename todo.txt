@@ -2,6 +2,7 @@ to do now:
 final boss
 make spear triangular
 make miniboss player-targeted attacks glow or something
+make mini boss easier
 
 
 
@@ -13,14 +14,9 @@ think of a name
 
 unnecessary, but might do:
 reload button at the end
-make visible checkpoints
 find sound effects
-make exploded chunks fade away
 change colors between levels
 make background less bright?
-change object colors/shaders
-make mini boss wall chunks break away
-make noise enemies use a flat shader
 
 
 
@@ -31,3 +27,6 @@ ending screen possibly looping back to the title screen
 make some enemies die by multiple attacks
 change engine color gradients on forward/backward/stationary movement
 change alpha value of visualizer based on intensity of level/music
+make noise enemies use a flat shader
+change object colors/shaders
+make exploded chunks fade away
