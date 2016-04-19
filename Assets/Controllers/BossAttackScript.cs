@@ -2,37 +2,30 @@
 using System.Collections;
 
 public class BossAttackScript : MonoBehaviour {
+    private Vector3 goalPosition;
+    private Vector3 velocity;
 
-	private GameObject[] BulletSpawners;
-	public GameObject Bullet;
-	private GameObject Player;
-
-	// Use this for initialization
-	void Start () {
-		BulletSpawners = GameObject.FindGameObjectsWithTag ("BulletSpawner");
-		Player = GameObject.FindGameObjectWithTag ("Player");
-	    //InvokeRepeating ("Shoot",Time.deltaTime,2);
-	}
+    // Use this for initialization
+    void Start () {
+        goalPosition = transform.localPosition + new Vector3(0f, 0f, -25f);
+        Move();
+    }
 	
 	// Update is called once per frame
 	void Update () {
-        //foreach (var b in BulletSpawners) {
-        //	var obj = Instantiate (Bullet, b.transform.position, b.transform.rotation) as GameObject;
-        //	obj.GetComponent<Rigidbody> ().AddForce (obj.transform.forward * 2);
-        //}
+        transform.localPosition += velocity * Time.deltaTime;
         transform.Rotate(0, 20 * Time.deltaTime, 20 * Time.deltaTime);
     }
 
-	void Shoot(){
-		foreach (var b in BulletSpawners) {
-			var obj = Instantiate (Bullet, new Vector3(b.transform.position.x,b.transform.position.y, b.transform.position.z),b.transform.rotation) as GameObject;
-			//b.transform.LookAt (new Vector3(b.transform.parent.transform.position.x, b.transform.parent.transform.position.y, b.transform.parent.transform.position.z));
-			obj.GetComponent<Rigidbody> ().AddForce ((Player.transform.position - obj.transform.position).normalized *5);
-		}
-	}
-
-    public void StartAttacking()
+    private void Move()
     {
-        InvokeRepeating("Shoot", Time.deltaTime, 2);
+        velocity = (goalPosition - transform.localPosition) / 14.222222222222222222f;
+        Invoke("StopMove", 14.222222222222222222f);
+    }
+
+    private void StopMove()
+    {
+        velocity = Vector3.zero;
+        transform.localPosition = goalPosition;
     }
 }

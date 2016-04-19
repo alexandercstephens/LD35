@@ -25,7 +25,7 @@ public class BoundingBoxHit : MonoBehaviour {
 			transform.parent.transform.localScale = new Vector3 (19f,19.7059f,18.6f);
             transform.parent.GetComponent<BoxCollider>().center = new Vector3(0f, 0f, 0.08f);
             transform.parent.GetComponent<BoxCollider>().size = new Vector3(1f, 1.4f, 1.7f);
-            GameObject.FindGameObjectWithTag("Boss").GetComponent<BossAttackScript>().StartAttacking();
+            //GameObject.FindGameObjectWithTag("Boss").GetComponent<BossAttackScript>().StartAttacking();
             zoomOut = true;
 		}
 
