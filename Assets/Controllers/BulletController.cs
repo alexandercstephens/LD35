@@ -8,6 +8,10 @@ public class BulletController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
+
+		if (this.transform.position.z < -25.0f)
+			Destroy (this.gameObject);
+
 	}
 }
  
