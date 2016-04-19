@@ -53,7 +53,58 @@ public class BeatController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (beatFrames != 0) {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            nextLevelNumber = 0;
+            StartLevel(levels [nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            nextLevelNumber = 1;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            nextLevelNumber = 2;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            nextLevelNumber = 3;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            nextLevelNumber = 4;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            nextLevelNumber = 5;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            nextLevelNumber = 6;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            nextLevelNumber = 7;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            nextLevelNumber = 8;
+            StartLevel(levels[nextLevelNumber]);
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            nextLevelNumber = 9;
+            StartLevel(levels[nextLevelNumber]);
+        }
+
+        if (beatFrames != 0) {
 			beatFrames -= 1;
 		}
 		switch (state) {
