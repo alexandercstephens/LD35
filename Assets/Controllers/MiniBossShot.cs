@@ -7,6 +7,7 @@ public class MiniBossShot : MonoBehaviour
 	private Vector3 goalPosition;
 	private Vector3 velocity = Vector3.zero;
 
+    public float fireRate = 1.777777777777f;
 	public Material atPlayerMaterial;
 
 	public void MoveTo (Vector3 pos, float time)
@@ -40,11 +41,11 @@ public class MiniBossShot : MonoBehaviour
 		CancelInvoke ();
 		if (atPlayer) {
 			var direction = GameObject.Find ("Player").transform.position - transform.position;
-			MoveTo (transform.position + direction.normalized * 60f, 1.777777777777f);
+			MoveTo (transform.position + direction.normalized * 60f, fireRate);
 		} else {
-			MoveTo (transform.position + Vector3.back * 60f, 1.777777777777f);
+			MoveTo (transform.position + Vector3.back * 60f, fireRate);
 		}
-		Invoke ("Destroy", 1.77777777777f);
+		Invoke ("Destroy", fireRate);
 	}
 
 	private void Move (float time)

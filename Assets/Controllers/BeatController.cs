@@ -65,20 +65,6 @@ public class BeatController : MonoBehaviour
 			}
 			break;
 		}
-		if (Input.GetKeyDown (KeyCode.L)) {//TODO call this chunk of code when the boss is defeated
-			currentSource.loop = false;
-			if (nextLevelNumber >= levels.Length - 1) {
-				var numBeatsLeft = 0;
-				var timeLeft = currentSource.clip.length - currentSource.time;
-				while (timeLeft > 0) {
-					timeLeft -= 0.44444444444f;
-					if (timeLeft > 0)
-						numBeatsLeft += 1;
-				}
-				InvokeRepeating ("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
-				Invoke ("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
-			}
-		}
 
 		if (currentSource != null) {
 			if (!currentSource.loop && nextLevelNumber < levels.Length && currentSource.clip.length - currentSource.time < 0.5f) {
@@ -108,6 +94,21 @@ public class BeatController : MonoBehaviour
 			}
 		}        
 	}
+
+    public void StartTheEnd ()
+    {
+        currentSource.loop = false;
+        var numBeatsLeft = 0;
+        var timeLeft = currentSource.clip.length - currentSource.time;
+        while (timeLeft > 0)
+        {
+            timeLeft -= 0.44444444444f;
+            if (timeLeft > 0)
+                numBeatsLeft += 1;
+        }
+        InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
+        Invoke("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
+    }
 
 	public bool IsOnBeat ()
 	{

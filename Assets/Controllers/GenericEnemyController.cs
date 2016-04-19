@@ -20,13 +20,16 @@ public class GenericEnemyController : MonoBehaviour {
 	public int ShootStyle = 0;
 	public bool FlyTowardsPlayer = false;
 	public bool SwayMovement = false;
-	public bool StrangeMovement = false;
+	//public bool StrangeMovement = false;
 	public bool ShootWithBeat = false;
 	public float fireRate = .2f;
 	public float movementSpeed = 25.0f;
 
 	public GameObject bulletPrefab;
 	private GameObject playerObject;
+    
+    private BeatController beatController;
+    private MovingSceneController checkpoint = null;
 
 	GameObject CreateBullet( Vector3 pos ) {
 		return CreateBullet (pos, Quaternion.LookRotation (pos - playerObject.transform.position) );
@@ -49,67 +52,69 @@ public class GenericEnemyController : MonoBehaviour {
 		SMNextMove = Time.time + 1.0f;
 		gameCamera = GameObject.Find ("CameraManager").GetComponent<CameraController> ();
 		playerObject = GameObject.Find ("Player");
+
+        beatController = GameObject.Find("BeatController").GetComponent<BeatController>();
     }
 
 	void LateUpdate() { 
-		if (StrangeMovement) {
-
-            if (!SMinit)
-            {
-                SMinit = true;
-                SMPos = SMDestPos = this.transform.position;
-            }
-
-			if (SMNextMove < Time.time) {
-				SMNextMove = Time.time + 0.9f;
-				int typeMovement = Random.Range( 0, 8 );
-				Vector3 diff = new Vector3 (0, 0, 0);
-				float moveDist = totalSpeed * .25f;
-				bool top = gameCamera.checkIsTopDown ();
-
-				if( SMLastMove > 1 )
-					typeMovement = Random.Range( 0, 2 );
-				
-
-				if ((!top && SMPos.y > 5)  || (top && SMPos.x > 7)) {
-					typeMovement = 0;
-				}
-
-				if ((!top && SMPos.y < -5) || (top && SMPos.x < -7 )) {
-					typeMovement = 1;
-				}
-
-				if (SMLastMove < 2)
-					typeMovement = 2;
-					
-				switch (typeMovement) {
-					case 0:
-					if (top)
-						diff.x = moveDist;
-					else
-						diff.y = moveDist;
-						break;
-				case 1:
-					if (top)
-						diff.x = -moveDist;
-					else
-						diff.y = -moveDist;
-						break;
-					default:
-					diff.z = moveDist * 1.4f;
-						break;
-
-				}
-
-				SMLastMove = typeMovement;
-
-				SMDestPos = SMPos - diff;
-			}
-            
-			SMPos = Vector3.Lerp (SMPos, SMDestPos, .4f);
-			this.transform.position = SMPos;
-
-		}
+		//if (StrangeMovement) {
+        //
+        //    if (!SMinit)
+        //    {
+        //        SMinit = true;
+        //        SMPos = SMDestPos = this.transform.position;
+        //    }
+        //
+		//	if (SMNextMove < Time.time) {
+		//		SMNextMove = Time.time + 0.9f;
+		//		int typeMovement = Random.Range( 0, 8 );
+		//		Vector3 diff = new Vector3 (0, 0, 0);
+		//		float moveDist = totalSpeed * .25f;
+		//		bool top = gameCamera.checkIsTopDown ();
+        //
+		//		if( SMLastMove > 1 )
+		//			typeMovement = Random.Range( 0, 2 );
+		//		
+        //
+		//		if ((!top && SMPos.y > 5)  || (top && SMPos.x > 7)) {
+		//			typeMovement = 0;
+		//		}
+        //
+		//		if ((!top && SMPos.y < -5) || (top && SMPos.x < -7 )) {
+		//			typeMovement = 1;
+		//		}
+        //
+		//		if (SMLastMove < 2)
+		//			typeMovement = 2;
+		//			
+		//		switch (typeMovement) {
+		//			case 0:
+		//			if (top)
+		//				diff.x = moveDist;
+		//			else
+		//				diff.y = moveDist;
+		//				break;
+		//		case 1:
+		//			if (top)
+		//				diff.x = -moveDist;
+		//			else
+		//				diff.y = -moveDist;
+		//				break;
+		//			default:
+		//			diff.z = moveDist * 1.4f;
+		//				break;
+        //
+		//		}
+        //
+		//		SMLastMove = typeMovement;
+        //
+		//		SMDestPos = SMPos - diff;
+		//	}
+        //    
+		//	SMPos = Vector3.Lerp (SMPos, SMDestPos, .4f);
+		//	this.transform.position = SMPos;
+        //
+		//}
 
         
 	}
@@ -132,26 +137,27 @@ public class GenericEnemyController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        SceneSpeed = GameObject.FindWithTag("Checkpoint").GetComponent<MovingSceneController>().movementSpeed;
-		totalSpeed = SceneSpeed + movementSpeed;
-
+        //if (checkpoint == null) checkpoint = GameObject.FindWithTag("Checkpoint").GetComponent<MovingSceneController>();
+        //SceneSpeed = checkpoint.movementSpeed;
+		//totalSpeed = SceneSpeed + movementSpeed;
+        //
 		bool pastPlayer = (this.transform.position.z - 5 < playerObject.transform.position.z);
 		bool withinShootingRange = (this.transform.position.z - 65 < playerObject.transform.position.z );
-      
+        //
         if( this.transform.position.z - 35 < playerObject.transform.position.z )
 			this.transform.Translate(0f, 0f, -Time.deltaTime * movementSpeed);
+        //
+		//if (!pastPlayer) {
+        //
+		//	if (FlyTowardsPlayer) {
+        //
+		//		this.transform.rotation = Quaternion.LookRotation (this.transform.position - playerObject.transform.position);
+        //
+		//	}
+        //
+		//}
 
-		if (!pastPlayer) {
-
-			if (FlyTowardsPlayer) {
-
-				this.transform.rotation = Quaternion.LookRotation (this.transform.position - playerObject.transform.position);
-
-			}
-
-		}
-
-		bool beatShot = GameObject.Find ("BeatController").GetComponent<BeatController> ().IsOnBeat ();
+		bool beatShot = beatController.IsOnBeat ();
 
 
 		if (CanShoot && withinShootingRange && ( Time.time > nextFireTime || ( ShootWithBeat && beatShot ) ) ) {

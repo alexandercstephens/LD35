@@ -41,7 +41,7 @@ public class ObstacleController : MonoBehaviour {
 
 				Vector3 newPos = StartPos + DestinationOffset;
 				newPos.z += (GameObject.FindGameObjectWithTag( "Checkpoint" ).transform.position.z - StartSceneZ);
-				Debug.Log (newPos.y);
+				//Debug.Log (newPos.y);
 				if (time > 0.0f)
 					this.transform.position = Vector3.Lerp (StartPos, newPos, (Time.time - StartTime) / time);
 				else

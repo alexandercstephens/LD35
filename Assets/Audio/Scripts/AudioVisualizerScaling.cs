@@ -9,7 +9,7 @@ public class AudioVisualizerScaling : MonoBehaviour
     private List<RandomColorAudioVisualizer> RAVScript;
 
     //An AudioSource object so the music can be played  
-    public AudioSource[] audioSources;
+    //public AudioSource[] audioSources;
     //A float array that stores the audio samples  
     public float[] samples = new float[64];
     //A renderer that will draw a line at the screen  
@@ -25,11 +25,13 @@ public class AudioVisualizerScaling : MonoBehaviour
     //The velocity that the cubes will drop
     private Vector3 gravity = new Vector3(0.0f, 0.5f, 0.0f);
 
+    private AudioSpectrum audioSpectrum;
+
     void Awake()
     {
         //Get and store a reference to the following attached components:  
         //AudioSource  
-        this.audioSources = GameObject.Find("AudioSources").GetComponentsInChildren<AudioSource>();
+        //this.audioSources = GameObject.Find("AudioSources").GetComponentsInChildren<AudioSource>();
         //LineRenderer  
         this.lRenderer = GetComponent<LineRenderer>();
         //Transform  
@@ -62,21 +64,24 @@ public class AudioVisualizerScaling : MonoBehaviour
 
     void Start()
     {
+        audioSpectrum = GameObject.Find("AudioSpectrum").GetComponent<AudioSpectrum>();
 
     }
 
     void Update()
     {
-        foreach (var audioSource in audioSources)
-        {
-            if (audioSource.isPlaying)
-            {
-                //Obtain the samples from the frequency bands of the attached AudioSource  
-                audioSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
-            }
-        }
+        //foreach (var audioSource in audioSources)
+        //{
+        //    if (audioSource.isPlaying)
+        //    {
+        //        //Obtain the samples from the frequency bands of the attached AudioSource  
+        //        audioSource.GetSpectrumData(this.samples, 0, FFTWindow.BlackmanHarris);
+        //    }
+        //}
         //For each sample  
         //this.transform.LookAt(Camera.main.transform.position);
+        this.samples = audioSpectrum.GetSamples();
+
         for (int i = 0; i < samples.Length; i++)
         {
             /*Set the cubePos Vector3 to the same value as the position of the corresponding 
