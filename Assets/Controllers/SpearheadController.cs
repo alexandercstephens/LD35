@@ -34,7 +34,9 @@ public class SpearheadController : MonoBehaviour
 			transform.localScale = new Vector3 (1f, 1f, distanceToEnemy);
 
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Enemies")) {
-				hitSound.Play ();
+                var maybeEndTheGame = hit.collider.gameObject.GetComponent<EndGame>();
+                if (maybeEndTheGame != null) maybeEndTheGame.EndTheGame();
+                hitSound.Play ();
 				Destroy (hit.collider.gameObject);
 				var fracturedObject = hit.collider.gameObject.GetComponent<FracturedObject> ();
 				if (fracturedObject != null) {

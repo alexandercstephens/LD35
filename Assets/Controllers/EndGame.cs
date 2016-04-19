@@ -10,7 +10,7 @@ public class EndGame : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void OnDestroy()
+	public void EndTheGame()
     {
         beatController.StartTheEnd();
     }
