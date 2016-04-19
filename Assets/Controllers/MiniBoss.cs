@@ -15,12 +15,12 @@ public class MiniBoss : MonoBehaviour
 	private Vector3 goalPosition;
 	private Vector3 velocity;
 
-	private int beatCount = 0;
+	private int beatCount = -4;
 
 	void Start ()
 	{
-		goalPosition = transform.localPosition + new Vector3 (0f, 0f, -10f);
-		goalProtectorPosition = miniBossProtector.localPosition + new Vector3 (0f, 0f, -10f);
+		goalPosition = transform.localPosition + new Vector3 (0f, 0f, -15f);
+		goalProtectorPosition = miniBossProtector.localPosition + new Vector3 (0f, 0f, -15f);
 		Move ();
 		MoveProtector ();
 		beatController = GameObject.Find ("BeatController").GetComponent<BeatController> ();
@@ -32,6 +32,7 @@ public class MiniBoss : MonoBehaviour
 			beatCount += 1;
 			if (beatCount <= 19) {
 				switch (beatCount) {
+				case 0:
 				case 1:
 				case 2:
 				case 3:
@@ -176,8 +177,8 @@ public class MiniBoss : MonoBehaviour
 
 	private void Move ()
 	{
-		velocity = (goalPosition - transform.localPosition) / 1.777777777f;
-		Invoke ("StopMove", 1.777777777f);
+		velocity = (goalPosition - transform.localPosition) / 7.111111111111f;
+		Invoke ("StopMove", 7.111111111111f);
 	}
 
 	private void StopMove ()
@@ -188,8 +189,8 @@ public class MiniBoss : MonoBehaviour
 
 	private void MoveProtector ()
 	{
-		protectorVelocity = (goalProtectorPosition - miniBossProtector.localPosition) / 1.777777777f;
-		Invoke ("StopProtector", 1.777777777f);
+		protectorVelocity = (goalProtectorPosition - miniBossProtector.localPosition) / 7.111111111111f;
+		Invoke ("StopProtector", 7.111111111111f);
 	}
 
 	private void StopProtector ()
