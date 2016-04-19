@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class MovingSceneController : MonoBehaviour {
     public float movementSpeed = 1f;
@@ -49,11 +50,21 @@ public class MovingSceneController : MonoBehaviour {
             v.GetComponent<RandomColorAudioVisualizer>().SetColorRange(audioMinRed, audioMaxRed, audioMinGreen, audioMaxGreen, audioMinBlue, audioMaxBlue);
         }
 
-        Camera.main.orthographicSize = cameraSize;
+        //Camera.main.orthographicSize = cameraSize;
         if (cameraSize != 12f) //TODO not this
         {
+            StartCoroutine("ZoomOut");
             GameObject.Find("BoundaryBox").transform.localScale = new Vector3(46f, 35f, 26f);
             GameObject.Find("Player").transform.Find("Spearhead").GetComponent<SpearheadController>().screenSize = 20f;
+        }
+    }
+
+    IEnumerator ZoomOut()
+    {
+        for (var i = 0; i < 100; i++)
+        {
+            Camera.main.orthographicSize = 12f + .06f * i;
+            yield return new WaitForFixedUpdate();
         }
     }
 
