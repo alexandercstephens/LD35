@@ -53,6 +53,7 @@ public class MovingSceneController : MonoBehaviour {
         if (cameraSize != 12f) //TODO not this
         {
             GameObject.Find("BoundaryBox").transform.localScale = new Vector3(46f, 35f, 26f);
+            GameObject.Find("Player").transform.Find("Spearhead").GetComponent<SpearheadController>().screenSize = 20f;
         }
     }
 

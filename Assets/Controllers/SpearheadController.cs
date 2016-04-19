@@ -18,10 +18,12 @@ public class SpearheadController : MonoBehaviour
 
 	private float timeHit = 0f;
 
+    public float screenSize = 13f;
+
 	// Use this for initialization
 	public void Spear ()
 	{
-		var distanceToScreenEnd = 13f - transform.position.z;
+		var distanceToScreenEnd = screenSize - transform.position.z;
 
 		RaycastHit hit;
 		//TODO make max length based on the end of the screen
