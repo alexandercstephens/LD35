@@ -16,6 +16,11 @@ public class BossBulletSpawner : MonoBehaviour {
 	void Update () {
 	    if (beatController.IsOnBeat())
         {
+            if (Random.value < 0.25f)
+            {
+                return;
+            }
+
             meshRenderer.material.color = Random.ColorHSV(0f, 1f, 0.8f, 1f, 0f, 1f, 1f, 1f);
 
             var shot = (GameObject)Instantiate(bossShot, transform.position, transform.rotation);

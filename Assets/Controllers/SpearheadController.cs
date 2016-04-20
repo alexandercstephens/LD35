@@ -4,6 +4,7 @@ using System.Collections;
 public class SpearheadController : MonoBehaviour
 {
 	public AudioSource hitSound;
+    public PlayerHit hitbox;
 
 	private CameraController cameraController;
 	private PlayerController playerController;
@@ -35,7 +36,11 @@ public class SpearheadController : MonoBehaviour
 
 			if (hit.collider.gameObject.layer == LayerMask.NameToLayer ("Enemies")) {
                 var maybeEndTheGame = hit.collider.gameObject.GetComponent<EndGame>();
-                if (maybeEndTheGame != null) maybeEndTheGame.EndTheGame();
+                if (maybeEndTheGame != null)
+                {
+                    maybeEndTheGame.EndTheGame();
+                    hitbox.canDie = false;
+                }
                 hitSound.Play ();
 				Destroy (hit.collider.gameObject);
 				var fracturedObject = hit.collider.gameObject.GetComponent<FracturedObject> ();
