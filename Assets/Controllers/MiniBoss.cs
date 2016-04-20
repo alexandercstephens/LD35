@@ -42,13 +42,13 @@ public class MiniBoss : MonoBehaviour
 				case 7:
 				case 12:
 				case 14:
-					StartCoroutine ("Attack1");
+					StartCoroutine ("AttackEasy");
 					break;
 				case 16:
 				case 17:
 				case 18:
 				case 19:
-					StartCoroutine ("Attack2");
+					StartCoroutine ("Attack1");
 					break;
 				case 8:
 				case 10:
@@ -78,10 +78,19 @@ public class MiniBoss : MonoBehaviour
 
 	IEnumerator Attack1 ()
 	{
+
+		var firstShot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
+		firstShot.transform.parent = transform.parent;
+
+		var firstShotComponent = firstShot.GetComponent<MiniBossShot> ();
+		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 7.5f), 0.444444444f);
+		firstShotComponent.Fire (1.7777777777f);
+
 		var randomAtPlayer = beatCount % 5;
 		if (randomAtPlayer == 4)
 			randomAtPlayer = beatCount % 4;
-		for (var i = 0; i < 5; i++) {
+		
+		for (var i = 0; i < 4; i++) {
 			var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
 			shot.transform.parent = transform.parent;
 
@@ -150,7 +159,7 @@ public class MiniBoss : MonoBehaviour
 
 				var shotComponent = shot.GetComponent<MiniBossShot> ();
 
-				shotComponent.MoveTo (new Vector3 (j * 6.66666666666f - 10f, i * 2f - 11f, j * 1f + 7f), 0.148148148148148f);
+				shotComponent.MoveTo (new Vector3 (j * 8f - 12f, i * 2f - 11f, j * 1f + 7f), 0.148148148148148f);
 
 				shotComponent.Fire ((12 - i) * 0.148148148148148f);
 			}
@@ -160,18 +169,64 @@ public class MiniBoss : MonoBehaviour
 
 	IEnumerator Attack4 ()
 	{
-		for (var i = 0; i < 12; i++) {
+		for (var i = 0; i < 16; i++) {
 			for (var j = 0; j < 4; j++) {
 				var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
 				shot.transform.parent = transform.parent;
 
 				var shotComponent = shot.GetComponent<MiniBossShot> ();
 
-				shotComponent.MoveTo (new Vector3 (i * 2f - 11f, j * 6.66666666666f - 10f, j * 1f + 7f), 0.148148148148148f);
+				shotComponent.MoveTo (new Vector3 (i * 2f - 15f, j * 6.66666666666f - 10f, j * 1f + 7f), 0.111111111111111f);
 
-				shotComponent.Fire ((12 - i) * 0.148148148148148f);
+				shotComponent.Fire ((16 - i) * 0.111111111111111f);
 			}
-			yield return new WaitForSeconds (0.148148148148148f);
+			yield return new WaitForSeconds (0.111111111111111f);
+		}
+	}
+
+	IEnumerator AttackEasy ()
+	{
+		var firstShot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
+		firstShot.transform.parent = transform.parent;
+
+		var firstShotComponent = firstShot.GetComponent<MiniBossShot> ();
+		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 7.5f), 0.444444444f);
+		firstShotComponent.Fire (1.7777777777f);
+
+		var randomAtPlayer = beatCount % 5;
+		if (randomAtPlayer == 4)
+			randomAtPlayer = beatCount % 4;
+
+		var randomNoAttack = beatCount % 4;
+		if (randomNoAttack == randomAtPlayer) {
+			randomNoAttack = (randomNoAttack + 1) % 4;
+		}
+
+		for (var i = 0; i < 4; i++) {
+			if (i == randomNoAttack) {
+				yield return new WaitForSeconds (0.444444444f);
+				continue;
+			}
+
+			var shot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
+			shot.transform.parent = transform.parent;
+
+			var shotComponent = shot.GetComponent<MiniBossShot> ();
+
+			if (i == 0)
+				shotComponent.MoveTo (new Vector3 (10f, 10f, 10f), 0.444444444f);
+			else if (i == 1)
+				shotComponent.MoveTo (new Vector3 (5f, 5f, 10f), 0.444444444f);
+			else if (i == 2)
+				shotComponent.MoveTo (new Vector3 (-5f, -5f, 10f), 0.444444444f);
+			else if (i == 3)
+				shotComponent.MoveTo (new Vector3 (-10f, -10f, 10f), 0.444444444f);
+
+			if (i == randomAtPlayer)
+				shotComponent.FireAtPlayer ();
+
+			shotComponent.Fire ((4 - i) * 0.44444444f);
+			yield return new WaitForSeconds (0.444444444f);
 		}
 	}
 
