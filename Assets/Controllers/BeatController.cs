@@ -53,58 +53,58 @@ public class BeatController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            nextLevelNumber = 0;
-            StartLevel(levels [nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            nextLevelNumber = 1;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            nextLevelNumber = 2;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            nextLevelNumber = 3;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            nextLevelNumber = 4;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            nextLevelNumber = 5;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            nextLevelNumber = 6;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            nextLevelNumber = 7;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            nextLevelNumber = 8;
-            StartLevel(levels[nextLevelNumber]);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            nextLevelNumber = 9;
-            StartLevel(levels[nextLevelNumber]);
-        }
+		//if (Input.GetKeyDown(KeyCode.Alpha0))
+		//{
+		//    nextLevelNumber = 0;
+		//    StartLevel(levels [nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha1))
+		//{
+		//    nextLevelNumber = 1;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha2))
+		//{
+		//    nextLevelNumber = 2;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha3))
+		//{
+		//    nextLevelNumber = 3;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha4))
+		//{
+		//    nextLevelNumber = 4;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha5))
+		//{
+		//    nextLevelNumber = 5;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha6))
+		//{
+		//    nextLevelNumber = 6;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha7))
+		//{
+		//    nextLevelNumber = 7;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha8))
+		//{
+		//    nextLevelNumber = 8;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
+		//else if (Input.GetKeyDown(KeyCode.Alpha9))
+		//{
+		//    nextLevelNumber = 9;
+		//    StartLevel(levels[nextLevelNumber]);
+		//}
 
-        if (beatFrames != 0) {
+		if (beatFrames != 0) {
 			beatFrames -= 1;
 		}
 		switch (state) {
@@ -122,18 +122,16 @@ public class BeatController : MonoBehaviour
 				StartLevel (levels [nextLevelNumber]);
 			}
 
-            if (currentSource.time < lastBeat)
-            {
-                lastBeat = 0f;
-                beatNumber += 1;
-                if (beatNumber == 5)
-                {
-                    if (canPlayerAttack)
-                        spear.Spear();
-                    beatNumber = 1;
-                    beatFrames = 1; //change to 2 if necessary
-                }
-            } else if (currentSource.time - lastBeat > 0.44444444444f) {
+			if (currentSource.time < lastBeat) {
+				lastBeat = 0f;
+				beatNumber += 1;
+				if (beatNumber == 5) {
+					if (canPlayerAttack)
+						spear.Spear ();
+					beatNumber = 1;
+					beatFrames = 1; //change to 2 if necessary
+				}
+			} else if (currentSource.time - lastBeat > 0.44444444444f) {
 				lastBeat = lastBeat + 0.44444444444f;
 				beatNumber += 1;
 				if (beatNumber == 5) {
@@ -146,20 +144,19 @@ public class BeatController : MonoBehaviour
 		}        
 	}
 
-    public void StartTheEnd ()
-    {
-        currentSource.loop = false;
-        var numBeatsLeft = 0;
-        var timeLeft = currentSource.clip.length - currentSource.time;
-        while (timeLeft > 0)
-        {
-            timeLeft -= 0.44444444444f;
-            if (timeLeft > 0)
-                numBeatsLeft += 1;
-        }
-        InvokeRepeating("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
-        Invoke("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
-    }
+	public void StartTheEnd ()
+	{
+		currentSource.loop = false;
+		var numBeatsLeft = 0;
+		var timeLeft = currentSource.clip.length - currentSource.time;
+		while (timeLeft > 0) {
+			timeLeft -= 0.44444444444f;
+			if (timeLeft > 0)
+				numBeatsLeft += 1;
+		}
+		InvokeRepeating ("EndShake", currentSource.clip.length - currentSource.time - 0.44444444444f * numBeatsLeft, 0.4444444444f);
+		Invoke ("EndGame", currentSource.clip.length - currentSource.time + 21.3333333333f);
+	}
 
 	public bool IsOnBeat ()
 	{
