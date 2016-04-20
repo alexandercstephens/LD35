@@ -78,12 +78,11 @@ public class MiniBoss : MonoBehaviour
 
 	IEnumerator Attack1 ()
 	{
-
 		var firstShot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
 		firstShot.transform.parent = transform.parent;
 
 		var firstShotComponent = firstShot.GetComponent<MiniBossShot> ();
-		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 7.5f), 0.444444444f);
+		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 6.875f), 0.444444444f);
 		firstShotComponent.Fire (1.7777777777f);
 
 		var randomAtPlayer = beatCount % 5;
@@ -97,17 +96,17 @@ public class MiniBoss : MonoBehaviour
 			var shotComponent = shot.GetComponent<MiniBossShot> ();
 
 			if (i == 0)
-				shotComponent.MoveTo (new Vector3 (10f, 10f, 10f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (10f, 10f, 6.875f), 0.444444444f);
 			else if (i == 1)
-				shotComponent.MoveTo (new Vector3 (5f, 5f, 10f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (5f, 5f, 6.875f), 0.444444444f);
 			else if (i == 2)
-				shotComponent.MoveTo (new Vector3 (-5f, -5f, 10f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (-5f, -5f, 6.875f), 0.444444444f);
 			else if (i == 3)
-				shotComponent.MoveTo (new Vector3 (-10f, -10f, 10f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (-10f, -10f, 6.875f), 0.444444444f);
 
 			if (i == randomAtPlayer)
 				shotComponent.FireAtPlayer ();
-			
+
 			shotComponent.Fire ((4 - i) * 0.44444444f);
 			yield return new WaitForSeconds (0.444444444f);
 		}
@@ -186,25 +185,15 @@ public class MiniBoss : MonoBehaviour
 
 	IEnumerator AttackEasy ()
 	{
-		var firstShot = (GameObject)Instantiate (miniBossShot, transform.position, transform.rotation);
-		firstShot.transform.parent = transform.parent;
-
-		var firstShotComponent = firstShot.GetComponent<MiniBossShot> ();
-		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 7.5f), 0.444444444f);
-		firstShotComponent.Fire (1.7777777777f);
-
 		var randomAtPlayer = beatCount % 5;
-		if (randomAtPlayer == 4)
-			randomAtPlayer = beatCount % 4;
-
-		var randomNoAttack = beatCount % 4;
+		var randomNoAttack = (2 * beatCount) % 5;
 		if (randomNoAttack == randomAtPlayer) {
-			randomNoAttack = (randomNoAttack + 1) % 4;
+			randomNoAttack = (randomNoAttack + 1) % 5;
 		}
 
-		for (var i = 0; i < 4; i++) {
+		var j = 0;
+		for (var i = 0; i < 5; i++) {
 			if (i == randomNoAttack) {
-				yield return new WaitForSeconds (0.444444444f);
 				continue;
 			}
 
@@ -212,20 +201,13 @@ public class MiniBoss : MonoBehaviour
 			shot.transform.parent = transform.parent;
 
 			var shotComponent = shot.GetComponent<MiniBossShot> ();
-
-			if (i == 0)
-				shotComponent.MoveTo (new Vector3 (10f, 10f, 10f), 0.444444444f);
-			else if (i == 1)
-				shotComponent.MoveTo (new Vector3 (5f, 5f, 10f), 0.444444444f);
-			else if (i == 2)
-				shotComponent.MoveTo (new Vector3 (-5f, -5f, 10f), 0.444444444f);
-			else if (i == 3)
-				shotComponent.MoveTo (new Vector3 (-10f, -10f, 10f), 0.444444444f);
+			shotComponent.MoveTo (new Vector3 (10f - 5f * i, 10f - 5f * i, 6.875f), 0.44444444f);
 
 			if (i == randomAtPlayer)
 				shotComponent.FireAtPlayer ();
 
-			shotComponent.Fire ((4 - i) * 0.44444444f);
+			shotComponent.Fire ((4 - j) * 0.44444444f);
+			j += 1;
 			yield return new WaitForSeconds (0.444444444f);
 		}
 	}
