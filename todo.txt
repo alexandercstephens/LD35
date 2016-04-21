@@ -1,29 +1,10 @@
-to do now:
-final boss
+get the unity web player / webgl versions to work
+allow player to move freely anywhere on camera
+make multiple break apart meshes, and rotate destructible objects randomly
 make spear triangular
-
-
-
-must do before publish:
-remove all debug controls
-think of a name
-
-
-
-unnecessary, but might do:
-reload button at the end
-find sound effects
-change colors between levels
-
-
-
-won't do until post-jam:
 make shader outline for player
 make custom outlined shader for engine particles
-ending screen possibly looping back to the title screen
-make some enemies die by multiple attacks
 change engine color gradients on forward/backward/stationary movement
-change alpha value of visualizer based on intensity of level/music
 make noise enemies use a flat shader
 change object colors/shaders
 make exploded chunks fade away
