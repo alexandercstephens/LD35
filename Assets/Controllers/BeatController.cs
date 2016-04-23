@@ -222,16 +222,18 @@ public class BeatController : MonoBehaviour
 		beatNumber = 1;
 	}
 
-	private int numShakes = 48;
+	private int numShakes = 32;
 
 	private void EndShake ()
 	{
-		if (numShakes > 32)
+		if (numShakes > 16)
 			cameraController.addShake (1f);
-		else if (numShakes > 16)
+		else if (numShakes > 12)
 			cameraController.addShake (2f);
-		else
+		else if (numShakes > 8)
 			cameraController.addShake (4f);
+		else
+			cameraController.addShake (8f);			
 		numShakes -= 1;
 	}
 

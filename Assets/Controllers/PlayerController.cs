@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour
 		}
 	}
 
+	public bool GetIsTopDown ()
+	{
+		return isTopDown;
+	}
+
 	private void SetScale ()
 	{
 		if (isTopDown) {

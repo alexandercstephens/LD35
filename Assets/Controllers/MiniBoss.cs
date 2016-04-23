@@ -82,7 +82,7 @@ public class MiniBoss : MonoBehaviour
 		firstShot.transform.parent = transform.parent;
 
 		var firstShotComponent = firstShot.GetComponent<MiniBossShot> ();
-		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 6.875f), 0.444444444f);
+		firstShotComponent.MoveTo (new Vector3 (0f, 0f, 7.1f), 0.444444444f);
 		firstShotComponent.Fire (1.7777777777f);
 
 		var randomAtPlayer = beatCount % 5;
@@ -96,13 +96,13 @@ public class MiniBoss : MonoBehaviour
 			var shotComponent = shot.GetComponent<MiniBossShot> ();
 
 			if (i == 0)
-				shotComponent.MoveTo (new Vector3 (10f, 10f, 6.875f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (14f, 10f, 7.35f), 0.444444444f);
 			else if (i == 1)
-				shotComponent.MoveTo (new Vector3 (5f, 5f, 6.875f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (7f, 5f, 7.35f), 0.444444444f);
 			else if (i == 2)
-				shotComponent.MoveTo (new Vector3 (-5f, -5f, 6.875f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (-7f, -5f, 7.35f), 0.444444444f);
 			else if (i == 3)
-				shotComponent.MoveTo (new Vector3 (-10f, -10f, 6.875f), 0.444444444f);
+				shotComponent.MoveTo (new Vector3 (-14f, -10f, 7.35f), 0.444444444f);
 
 			if (i == randomAtPlayer)
 				shotComponent.FireAtPlayer ();
@@ -201,7 +201,7 @@ public class MiniBoss : MonoBehaviour
 			shot.transform.parent = transform.parent;
 
 			var shotComponent = shot.GetComponent<MiniBossShot> ();
-			shotComponent.MoveTo (new Vector3 (10f - 5f * i, 10f - 5f * i, 6.875f), 0.44444444f);
+			shotComponent.MoveTo (new Vector3 (14f - 7f * i, 10f - 5f * i, 7.35f), 0.44444444f);
 
 			if (i == randomAtPlayer)
 				shotComponent.FireAtPlayer ();
